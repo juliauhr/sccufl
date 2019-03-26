@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/elbobo/aframe-multisrc-component/b6d23310/dist/0.3/aframe-multisrc-component.js"></script>
+    <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
+
+
+    <script>
+
+      //array of books with info
+      var shelfBooks=[];
+      shelfBooks.push({
+        title:"Belle au bois dormant",
+        id:"Belle_au_bois_dormant",
+        author:"Perrault, Charles",
+        date:"1700",
+        call:"PQ1877.A7 1700",
+        pages:34
+      });
+      shelfBooks.push({
+        title:"Dornroeschen",
+        id:"dornroeschen",
+        author:"Grimm, Wilhelm",
+        date:"1886",
+        call:"PZ34.G7 1886",
+        pages:10
+      });
+      shelfBooks.push({
+        title:"English Struwwelpeter",
+        id:"English_Struwwelpeter",
+        author:"Hoffmann, Heinrich",
+        date:"1809-1894",
+        call:"372.881.H675sG",
+        pages:27
+      });
+      shelfBooks.push({
+        title:"Grimm's fairy tales",
+        id:"Grimm's_fairy_tales",
+        author:"Grimm, Jacob",
+        date:"1900?",
+        call:"",
+        pages:96
+      });
+      shelfBooks.push({
+        title:"The Happy Prince and Other Tales",
+        id:"Happy_prince_and_other_tales",
+        author:"Wilde, Oscar",
+        date:"1904",
+        call:"",
+        pages:62
+      });
+
+
+
+      AFRAME.registerComponent('setup', {
+        init: function () {
+
+          //bookshelf books
+          var shelfWidth = shelfBooks.length*.15;
+          startX = -(shelfWidth/2);
+          if(shelfBooks.length >150){
+            startY = 4;
+          }else if(shelfBooks.length >100){
+            startY = 3;
+          }else if(shelfBooks.length >50){
+            startY = 2;
+          }else{
+            startY = 1;
+          }
+
+          for (var i=0; i<shelfBooks.length; i++){
+          //for (var i=0; i<40; i++){
+            var newbook = document.createElement('a-box');
+            newbook.setAttribute('material','src:#bookCover');
+            newbook.setAttribute('open-shelf-book','');
+            newbook.setAttribute('shelf-book-hover','');
+            newbook.setAttribute('number',i);
+            newbook.setAttribute('id','shelfBook'+i);
+            newbook.object3D.scale.set(.1, .5, .4);
+            newbook.object3D.position.set(startX+i*.15, startY*1, -12);
+            document.querySelector('a-scene').appendChild(newbook);
+
+            var newtext = document.createElement('a-box');
+            newtext.setAttribute('visible','false');
+            newtext.setAttribute('number',i);
+            newtext.object3D.scale.set(1, .7, .01);
+            newtext.object3D.position.set(startX+i*.15, startY*1.5, -12.2);
+            newtext.setAttribute('id','shelfBookText'+i);
+            document.querySelector('a-scene').appendChild(newtext);
+
+            var newblurb = document.createElement('a-text');
+            newblurb.setAttribute('value',shelfBooks[i].title+'\n'+shelfBooks[i].author+'\n'+shelfBooks[i].date+'\n'+shelfBooks[i].call);
+            newblurb.setAttribute('color','black');
+            newblurb.setAttribute('width','2');
+            //newblurb.setAttribute('align','center');
+            newblurb.object3D.position.set(-.4, .1, 1.01);
+            document.querySelector('#shelfBookText'+i).appendChild(newblurb);
+          }
+
+          //checkpoints
+          checkpointCounter = 0;
+          for(var i=-9; i<9; i++){
+            for(var j=-14; j<4; j++){
+              var newcheck = document.createElement('a-box');
+              newcheck.object3D.scale.set(1, .01, 1);
+              newcheck.object3D.position.set(i+.5, .0001, j+.5);
+              newcheck.setAttribute('id','checkpoint'+checkpointCounter);
+              newcheck.setAttribute('color','cyan');
+              newcheck.setAttribute('transparent','true');
+              newcheck.setAttribute('opacity','.5');
+              newcheck.setAttribute('visible','false');
+              newcheck.setAttribute('checkpoint','');
+              newcheck.setAttribute('check-hover','');
+              document.querySelector('a-scene').appendChild(newcheck);
+              checkpointCounter++;
+
+              if(i === -8 || i === 7 || j === -13){
+                var newcheck = document.createElement('a-box');
+                newcheck.object3D.scale.set(1, .01, 1);
+                newcheck.object3D.position.set(i+.5, 7.6, j+.5);
+                newcheck.setAttribute('id','checkpoint'+checkpointCounter);
+                newcheck.setAttribute('color','cyan');
+                newcheck.setAttribute('transparent','true');
+                newcheck.setAttribute('opacity','.5');
+                newcheck.setAttribute('visible','false');
+                newcheck.setAttribute('checkpoint','');
+                newcheck.setAttribute('check-hover','');
+                document.querySelector('a-scene').appendChild(newcheck);
+                checkpointCounter++;
+              }
+            }
+          }
+
+
+          //spiral staircase
+          var stepAngle=0;
+          var stepY=.1;
+          for(var m=0; m<28; m++){
+            var newstep = document.createElement('a-box');
+            newstep.object3D.scale.set(2, .025, .4);
+            newstep.object3D.position.set(-6, stepY, 2);
+            newstep.setAttribute('rotation','0 '+ stepAngle + ' 0');
+            newstep.setAttribute('id','step'+ m);
+            newstep.setAttribute('color','red');
+            newstep.setAttribute('transparent','true');
+            newstep.setAttribute('opacity','0');
+
+            var vizstep = document.createElement('a-box');
+            vizstep.object3D.scale.set(.5, 2, 1);
+            vizstep.object3D.position.set(.5, 0, 0);
+            vizstep.setAttribute('material','src:#stair');
+            //vizstep.setAttribute('transparent','true');
+            vizstep.setAttribute('blue-check','');
+            vizstep.setAttribute('checkpoint','');
+            newstep.appendChild(vizstep);
+
+            var railing = document.createElement('a-box');
+            railing.object3D.scale.set(.01, .3, 12.5);
+            railing.object3D.position.set(.7, 40, 0);
+            railing.setAttribute('rotation','81 0 0');
+            railing.setAttribute('material','src:#stair');
+            newstep.appendChild(railing);
+
+            stepAngle += 30;
+            stepY += .3;
+
+            document.querySelector('a-scene').appendChild(newstep);
+          }
+
+          var poll = document.createElement('a-box');
+          poll.object3D.scale.set(.1, 10, .1);
+          poll.object3D.position.set(-6, 5, 2);
+          poll.setAttribute('material','src:#stair');
+          document.querySelector('a-scene').appendChild(poll);
+        }
+
+
+
+      });
+
+      AFRAME.registerComponent('open-door', {
+        init: function () {
+          var el = this.el;
+          var open=false;
+          el.addEventListener('click', function () {
+            open = !open;
+            if(open){
+              document.querySelector('#door').emit('open');
+            }else{
+              document.querySelector('#door').emit('close');
+            }
+          });
+        }
+      });
+
+      /*AFRAME.registerComponent('clickShelfBook', {
+        init: function () {
+          var el = this.el;
+          var open=false;
+          el.addEventListener('click', function () {
+            open = !open;
+            if(open){
+              screen3.setAttribute('visible','true');
+              document.querySelector('#screen3').emit('open');
+              document.querySelector('#pic3').emit('open');
+            }else{
+              screen3.setAttribute('visible','false');
+              document.querySelector('#screen3').emit('close');
+              document.querySelector('#pic3').emit('close');
+            }
+          });
+        }
+      });*/
+
+      AFRAME.registerComponent('checkpoint', {
+        //checkpoint for stairs
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+
+
+            var worldPos = new THREE.Vector3();
+            worldPos.setFromMatrixPosition(el.object3D.matrixWorld);
+
+
+            var xpos = worldPos.x;
+            document.querySelector('#outterRig').object3D.position.x = xpos;
+            var ypos = worldPos.y;
+            var height = el.object3D.scale.y;
+            var Pheight = el.parentEl.object3D.scale.y;
+            document.querySelector('#outterRig').object3D.position.y = ypos+((height*Pheight)/2);
+            var zpos = worldPos.z;
+            document.querySelector('#outterRig').object3D.position.z = zpos;
+          });
+        }
+      });
+
+      AFRAME.registerComponent('check-hover', {
+        init: function () {
+          var chk = this.el;
+          chk.addEventListener('mouseenter', function() {
+            chk.setAttribute('visible','true');
+          });
+          chk.addEventListener('mouseleave', function() {
+            chk.setAttribute('visible','false');
+          });
+        }
+      });
+
+      AFRAME.registerComponent('blue-check', {
+        init: function () {
+          var chk = this.el;
+          chk.addEventListener('mouseenter', function() {
+            chk.setAttribute('color','cyan');
+          });
+          chk.addEventListener('mouseleave', function() {
+            chk.setAttribute('color','');
+          });
+        }
+      });
+
+      AFRAME.registerComponent('shelf-book-hover', {
+        init: function () {
+          var el = this.el;
+
+          el.addEventListener('mouseenter', function() {
+            el.setAttribute('color','cyan');
+            var num = el.getAttribute('number');
+            document.querySelector('#shelfBookText'+num).setAttribute('visible','true');
+          });
+          el.addEventListener('mouseleave', function() {
+            el.setAttribute('color','');
+            var num = el.getAttribute('number');
+            document.querySelector('#shelfBookText'+num).setAttribute('visible','false');
+
+          });
+        }
+      });
+
+      var rigRotate = 0;
+AFRAME.registerComponent("ogo-listener", {
+ init: function() {
+    this.el.addEventListener("axismove", function (evt) {
+      var xpos = evt.detail.axis[0];
+       if(xpos>0){
+         rigRotate = -45;
+       }else{
+         rigRotate = 45;
+       }
+    });
+ }
+})
+
+var turnCounter = 0;
+AFRAME.registerComponent("controller-spin", {
+ init: function() {
+  this.el.addEventListener("trackpaddown", (e) => {
+    turnCounter += rigRotate;
+    document.querySelector('#rig').setAttribute('rotation','0 '+turnCounter+' 0');
+  })
+ }
+})
+
+
+      AFRAME.registerComponent('open-book', {
+        //schema:{
+          //book:{type:'string',default:'sleepingBeauty'}
+        //}
+        init: function () {
+          var el = this.el;
+          var bookOpen = false;
+          el.addEventListener('click', function () {
+            bookOpen = !bookOpen;
+            if(bookOpen){
+              screen1.setAttribute('visible','true');
+              document.querySelector('#bookTop').emit('open');
+              document.querySelector('#screen1').emit('open');
+              document.querySelector('#pic1').emit('open');
+              document.querySelector('#trees').emit('open');
+              wall3.setAttribute('material','src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F'+'sleepingBeauty'+'-9.png?1550596466000; repeat:1 1');
+              wall4.setAttribute('material','src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F'+'sleepingBeauty'+'-8.png?1550596466000; repeat:1 1');
+            }else{
+              screen1.setAttribute('visible','false');
+              document.querySelector('#bookTop').emit('close');
+              document.querySelector('#screen1').emit('close');
+              document.querySelector('#pic1').emit('close');
+              document.querySelector('#trees').emit('close');
+              wall3.setAttribute('material','src:#wall; repeat:3 3');
+              wall4.setAttribute('material','src:#wall; repeat:3 3');
+            }
+          });
+        }
+      });
+
+      var currentBook = "";
+      var currentBookPageCount = 1;
+      var currentPage = 1;
+      AFRAME.registerComponent('open-shelf-book', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            currentPage = 1;
+              document.querySelector('#screen3').setAttribute('visible','true');
+              document.querySelector('#screen2').setAttribute('visible','true');
+              var num = el.getAttribute('number');
+              var id = shelfBooks[num].id;
+              currentBook =  id;
+              currentBookPageCount = shelfBooks[num].pages;
+              document.querySelector('#pic3').setAttribute('material','src: books/'+id+'/'+id+'-1.png');
+              document.querySelector('#pic2').setAttribute('material','src: books/'+id+'/'+id+'-1.png');
+          });
+        }
+      });
+
+      AFRAME.registerComponent('next-page-shelf', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            if(currentPage<currentBookPageCount){
+              currentPage ++;
+            }else{
+              currentPage = 1;
+            }
+            document.querySelector('#pic3').setAttribute('material','src: books/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#pic2').setAttribute('material','src: books/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+          });
+        }
+      });
+      AFRAME.registerComponent('previous-page-shelf', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            if(currentPage>1){
+              currentPage --;
+            }else{
+              currentPage = currentBookPageCount;
+            }
+            document.querySelector('#pic3').setAttribute('material','src: books/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+          });
+        }
+      });
+
+      AFRAME.registerComponent('next-page', {
+        init: function () {
+          var num = 1;
+          var pageTotal = 9;
+          var thisBook = "sleepingBeauty";
+          var el = this.el;
+          el.addEventListener('click', function () {
+            document.querySelector('#pic1').setAttribute('material','src:#loading');
+            if(num<pageTotal){
+              num++;
+            }else{
+              num = 1;
+            }
+            //var pagePic = 'https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F'+thisBook+'-'+num+'.png?1550596466000';
+            document.querySelector('#pic1').setAttribute('material','src:'+pagePic);
+          });
+        }
+      });
+
+
+      AFRAME.registerComponent('previous', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            if(num>1){
+              num--;
+            }else{
+              num = pageTotal;
+            }
+            pic1.setAttribute('material','src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-'+num+'.png?1550596466000');
+          });
+        }
+      });
+
+      AFRAME.registerComponent('button-hover', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('mouseenter', function() {
+            el.setAttribute('color','cyan');
+          });
+          el.addEventListener('mouseleave', function() {
+            el.setAttribute('color','white');
+          });
+        }
+      });
+
+      AFRAME.registerComponent('update-progress-bar', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            var Xpos = -2.5+((num*(5/pageTotal))/2);
+            progressBar.setAttribute('width',(num*(5/pageTotal)));
+            progressBar.setAttribute('position', {x:Xpos, y:-1.79, z:.02});
+          });
+        }
+      });
+
+      AFRAME.registerComponent('clear-hover', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            for (var i=0; i<checkpointCounter; i++){
+              var chk = document.querySelector('#checkpoint'+i);
+              chk.setAttribute('visible','false');
+            }
+            el.setAttribute('visible','false');
+          });
+        }
+      });
+
+      AFRAME.registerComponent('audiohandler', {
+        init:function() {
+          let playing = false;
+          let audio = document.querySelector("#audio");
+          this.el.addEventListener('click', function () {
+            if(!playing) {
+              audio.play();
+              document.querySelector('#lp').emit('resume');
+            } else {
+              audio.pause();
+              document.querySelector('#lp').emit('stop');
+            }
+           playing = !playing;
+         });
+       }
+     })
+
+    </script>
+  </head>
+  <body>
+
+    <a-scene antialias="true" cursor="rayOrigin:mouse" vr-mode-ui="enterVRButton: #myEnterVRButton">
+      <a-assets>
+        <img id="arrow" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Farrow.png?1548781199276">
+        <img id="bookCover" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FNew%20Piskel%20(5).png?1548789571820">
+        <img id="paper" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fpages.jpg?1548785424816">
+        <img id="paperOpen" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fpage.jpg?1548788522921">
+        <img id="p1" src="https://cdn.glitch.com/49f411ae-b3e2-4d57-8d3c-1282fe813c94%2Fp1.png?1548296015627">
+        <img id="p2" src="https://cdn.glitch.com/49f411ae-b3e2-4d57-8d3c-1282fe813c94%2FScreen%20Shot%202019-01-23%20at%207.11.22%20PM.png?1548296023112">
+        <img id="p3" src="https://cdn.glitch.com/49f411ae-b3e2-4d57-8d3c-1282fe813c94%2Fp3.png?1548296031746">
+        <img id="p4" src="https://cdn.glitch.com/49f411ae-b3e2-4d57-8d3c-1282fe813c94%2Fp4.png?1548296045029">
+        <img id="p5" src="https://cdn.glitch.com/49f411ae-b3e2-4d57-8d3c-1282fe813c94%2Fp5.png?1548296052349">
+        <img id="wall" src="https://4.bp.blogspot.com/-clhFrR8tFgM/XCT92qhNIiI/AAAAAAAAKpQ/PnO8rLewtF8Oc5HLGE2fxyKrIEBXgjdlQCLcBGAs/s1600/bookshelf.jpg">
+        <img id="columns" src="https://cdn.glitch.com/4c6dc7ac-13d7-41ef-a26d-e9c270ee53a3%2Fbookshelf2.png?1549232516466">
+        <img id="floor" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Ffloor2.jpg?1549056502821">
+        <img id="ceiling" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FceilingFT.png?1550377539822">
+        <img id="compass" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fcompass3.png?1550419019716">
+        <img id="sky" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fequirectangular.jpg?1549051475174">
+        <img id="water" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwater3.jpg?1549052886011">
+        <img id="tree" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F 2.png?1550370618187">
+        <img id="ftp1" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FScreen%20Shot%202019-02-17%20at%209.05.32%20AM.png?1550419576283">
+        <img id="vricon" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fvr.png?1550449891043">
+        <img id="sbFront" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000">
+        <img id="sbBack" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-9.png?1550596478267">
+        <img id="carpet" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fcarpet.jpg?1550610824362">
+        <img id="wood" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwood.jpg?1550614252466">
+        <img id="wood2" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwood3.jpg?1550885904041">
+        <img id="wallpaper" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwallpaper2.jpg?1550881504494">
+        <img id="doorPic" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwooddoor.png?1550637971075">
+        <img id="rug" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Frug.png?1550638600071">
+        <img id="metal" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fmarble.jpg?1550967144090">
+        <img id="pillow" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fpillow2.png?1550973632662">
+        <img id="stair" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fstair2.png?1551209417945">
+        <img id="brass" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fproducts-4113.jpg?1551230008276">
+        <img id="record" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
+        <img id="loading" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
+
+        <audio id="audio" src="assets/clairDeLune.mp3">
+      </a-assets>
+
+      <!--back wall-->
+      <a-plane id="wall1" scale="20 15" position="0 7.5 -15" material="src:#wall; repeat:4 4" setup shadow></a-plane>
+      <a-plane scale="19.4 15" position="0 7.5 -14.7" material="src:#columns" transparent="true" repeat="2 2" shadow></a-plane>
+      <!--front wall-->
+      <a-plane id="wall2" scale="20 15" rotation="0 180 0" position="0 7.5 5" material="src:#wall; repeat:4 4" shadow></a-plane>
+      <a-plane scale="19.4 15" rotation="0 180 0" position="0 7.5 4.7" material="src:#columns" transparent="true" repeat="2 2" shadow></a-plane>
+      <!--right wall-->
+      <a-plane id="wall3" scale="20 15" position="10 7.5 -5" rotation="0 -90 0" material="src:#wall; repeat:4 4" shadow></a-plane>
+      <a-plane scale="19.4 15" position="9.7 7.5 -5" rotation="0 -90 0" material="src:#columns" transparent="true" repeat="2 2" shadow></a-plane>
+      <!--left wall-->
+      <a-plane id="wall4" scale="20 15" position="-10 7.5 -5" rotation="0 90 0" material="src:#wall; repeat:4 4" shadow></a-plane>
+      <a-plane scale="19.4 15" position="-9.7 7.5 -5" rotation="0 90 0" material="src:#columns" transparent="true" repeat="2 2" turn-player shadow></a-plane>
+      <!--floor-->
+      <a-plane scale="20 20" position="0 0 -5" rotation="-90 0 0" material="src:#floor; repeat:5 5" shadow></a-plane>
+      <a-plane scale="20 20" position="0 15 -5" rotation="90 0 90" material="src:#ceiling;"></a-plane>
+
+      <!--2nd floor-->
+      <a-box scale="20 .2 3" position="0 7.5 -13.5" material="src:#carpet; repeat:10 1"></a-box>
+      <a-box scale="3 .2 20" position="8.5 7.5 -2" material="src:#carpet; repeat:1 10"></a-box>
+      <a-box scale="3 .2 20" position="-8.5 7.5 -2" material="src:#carpet; repeat:1 10"></a-box>
+
+      <!--simple stairs
+      <a-box scale="1 1 1" position=".5 .5 3" material="src:#metal" checkpoint blue-check></a-box>
+      <a-box scale="1 1 1" position="2.5 2.5 3" material="src:#metal" checkpoint blue-check></a-box>
+      <a-box scale="1 1 1" position="4.5 4.5 3" material="src:#metal" checkpoint blue-check></a-box>
+      <a-box scale="1 1 1" position="6.5 6.5 3" material="src:#metal" checkpoint blue-check></a-box>
+      -->
+      <!--nook-->
+      <a-plane scale="3 3" position="5.5 1.5 4.5" rotation="0 180 0" material="src:#wallpaper; side:double"></a-plane>
+      <a-plane scale="3 3" position="5.5 2.99 3.5" rotation="90 0 0" material="src:#wallpaper; side:double"></a-plane>
+      <a-plane scale="3 3" position="4.001 1.5 3.5" rotation="0 90 0" material="src:#wallpaper; side:double"></a-plane>
+      <a-plane scale="3 3" position="6.99 1.5 3.5" rotation="0 -90 0" material="src:#wallpaper; side:double"></a-plane>
+      <a-cylinder scale="1.2 .2 1" position="5.5 .1 3.5" material="src:#pillow" checkpoint blue-check></a-cylinder>
+      <!--door-->
+      <a-box id="door" scale="3 3 .1" position="5.5 1.5 1.95" material="src:#doorPic"
+        animation__o="property: position; dur:3000; to: 8 1.5 2; startEvents:open"
+        animation__c="property: position; dur:3000; to: 5.5 1.5 2; startEvents:close"
+        open-door>
+      </a-box>
+
+      <!--ceiling screen-->
+      <a-plane id="screen2" scale="3 3" position="5.5 2.98 3.5" rotation="90 0 -90" color="white" transparent="true" opacity=".5">
+        <a-plane id="pic2" position="0 0 .01" scale=".5 .7" material="src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000">
+        </a-plane>
+        <a-plane position=".4 0 .02" height=".1" width=".1" material="src:#arrow" rotation="0 0 180" next-page-shelf button-hover></a-plane>
+        <a-plane position=".4 -.2 .02" height=".1" width=".1" material="src:#arrow" previous-page-shelf button-hover></a-plane>
+      </a-plane>
+
+      <!--trees-->
+      <a-sphere id="trees" scale="17 17 17" position="0 5 -5" material="src:#tree; repeat:4 1; side:double"
+        color="black"
+        transparent="true"
+        opacity=".7"
+        animation__o="property:scale; dur:5000; to: 10 8 10; startEvents:open;"
+        animation__c="property:scale; dur:5000; to: 17 17 17; startEvents:close;">
+        <!--
+animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
+        animation__c="property:position; dur:5000; to: 0 -10 -5; startEvents:close;"
+-->
+
+
+      </a-sphere>
+
+
+      <!--display book-->
+      <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
+      animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
+      animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
+        <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+      </a-box>
+      <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
+        <!--<a-plane position="0 .6 0" height=".9" width=".9" material="src:#p1" rotation="-90 0 0"></a-plane>-->
+      </a-box>
+      <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+
+      <!--display book screen-->
+      <a-plane id="screen1" position="0 3 -8" width=".001" height="3.5" color="white" transparent="true" opacity=".8" visible="false"
+       animation__ow="property: width; dur: 1000; loop: false; to: 5; startEvents: open;"
+       animation__cw="property: width; dur: 1000; loop: false; to: .001; startEvents: close;">
+        <!--<a-animation attribute="width" begin="goup" dur="1000" from="0" to="5"></a-animation>-->
+
+        <a-plane id="pic1" position="0 0 .01" height="3.3" width="0" material="src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000"
+        animation__ow="property: width; dur: 1000; loop: false; to: 2.5; startEvents: open;"
+        animation__cw="property: width; dur: 1000; loop: false; to: .01; startEvents: close;">
+          <!--<a-animation attribute="width" begin="goup" dur="1000" from="0" to="3"></a-animation>-->
+        </a-plane>
+        <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180" next-page button-hover update-progress-bar></a-plane>
+        <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow" previous button-hover update-progress-bar></a-plane>
+        <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
+        <a-plane id="progressBar" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
+      </a-plane>
+
+
+
+      <!--shelf book screen-->
+      <a-plane id="screen3" position="0 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="true">
+        <a-plane id="pic3" position="0 0 .01" height="3.3" width="2.5" material="src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000"
+        ></a-plane>
+        <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180" next-page-shelf button-hover></a-plane>
+        <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow" previous-page-shelf button-hover></a-plane>
+        <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
+        <a-plane id="progressBar3" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
+      </a-plane>
+
+
+
+      <!--gramophone-->
+      <a-entity position="-8 0 -11">
+        <a-box scale="1.5 1 1" position="1 .5 -1" material="src:#wood"></a-box>
+        <a-box scale=".2 .2 .2" position="1 .8 -.5" material="src:#brass" audiohandler button-hover></a-box>
+        <a-cone  scale=".25 .5 .25" position="1.05 1.5 -1" rotation="-135 -90 0" open-ended="true" material="src:#brass; side: double; repeat:3 1"></a-cone>
+        <a-cone  scale=".3 .25 .3" position=".95 1.6 -1" rotation="-135 -90 0" open-ended="true" material="src:#brass; side: double; repeat:3 1"></a-cone>
+        <a-cylinder scale=".03 .2 .03" position="1.2 1.3 -1" material="src:#brass"></a-cylinder>
+        <a-cone scale=".04 .4 .04" position="1.05 1.105 -1" rotation=" 120 -90 0" material="src:#brass"></a-cone>
+        <a-cylinder id="lp" scale=".3 .01 .3" position=" .65 1.005 -1" material="src:#record"
+          animation="property:rotation; to: 0 360 0; loop:true; easing:linear; dur:2000; startEvents: start; resumeEvents: resume; pauseEvents: stop;"></a-cylinder>
+      </a-entity>
+
+      <!--player-->
+      <a-entity id="outterRig" position="0 0 0">
+      <a-entity id="rig">
+        <a-camera position="0 1.6 0"></a-camera>
+        <a-entity id="controller" oculus-go-controls ogo-listener controller-spin></a-entity>
+        <a-entity laser-controls="hand: right" line="color: cyan; opacity: 1; far: 25"></a-entity>
+      </a-entity>
+        <a-plane scale="1 1" position="0 .01 0" material="src:#compass" transparent="true" rotation="-90 0 0"></a-plane>
+      </a-entity>
+
+
+      <a-plane id="myEnterVRButton" href="#"
+        scale=".5 .5"
+        position="0 1.6 -1"
+        material="src:#vricon"
+        clear-hover>
+      </a-plane>
+
+
+    </a-scene>
+  </body>
+</html>
