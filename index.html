@@ -313,19 +313,21 @@ AFRAME.registerComponent("controller-spin", {
           el.addEventListener('click', function () {
             bookOpen = !bookOpen;
             if(bookOpen){
-              screen1.setAttribute('visible','true');
-              document.querySelector('#bookTop').emit('open');
-              document.querySelector('#screen1').emit('open');
-              document.querySelector('#pic1').emit('open');
+              //screen1.setAttribute('visible','true');
+              //document.querySelector('#bookTop').emit('open');
+              el.emit('open');
+              //document.querySelector('#screen1').emit('open');
+              //document.querySelector('#pic1').emit('open');
               document.querySelector('#trees').emit('open');
-              wall3.setAttribute('material','src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F'+'sleepingBeauty'+'-9.png?1550596466000; repeat:1 1');
-              wall4.setAttribute('material','src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F'+'sleepingBeauty'+'-8.png?1550596466000; repeat:1 1');
+              wall3.setAttribute('material','src:#peterPan; repeat:1 1');
+              wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
             }else{
-              screen1.setAttribute('visible','false');
-              document.querySelector('#bookTop').emit('close');
-              document.querySelector('#screen1').emit('close');
-              document.querySelector('#pic1').emit('close');
+              //screen1.setAttribute('visible','false');
+              //document.querySelector('#bookTop').emit('close');
+              //document.querySelector('#screen1').emit('close');
+              //document.querySelector('#pic1').emit('close');
               document.querySelector('#trees').emit('close');
+              el.emit('close');
               wall3.setAttribute('material','src:#wall; repeat:3 3');
               wall4.setAttribute('material','src:#wall; repeat:3 3');
             }
@@ -448,7 +450,7 @@ AFRAME.registerComponent("controller-spin", {
               var chk = document.querySelector('#checkpoint'+i);
               chk.setAttribute('visible','false');
             }
-            el.setAttribute('visible','false');
+            //el.setAttribute('visible','false');
           });
         }
       });
@@ -469,6 +471,15 @@ AFRAME.registerComponent("controller-spin", {
          });
        }
      })
+
+
+    /* AFRAME.registerComponent('auto-enter-vr', {
+       init: function () {
+         this.el.addEventListener('click', function () {
+           this.el.sceneEl.enterVR();
+         }
+       }
+     });*/
 
     </script>
   </head>
@@ -492,7 +503,7 @@ AFRAME.registerComponent("controller-spin", {
         <img id="compass" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fcompass3.png?1550419019716">
         <img id="sky" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fequirectangular.jpg?1549051475174">
         <img id="water" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwater3.jpg?1549052886011">
-        <img id="tree" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F 2.png?1550370618187">
+        <img id="tree" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Ftree2.png?1550370618187">
         <img id="ftp1" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FScreen%20Shot%202019-02-17%20at%209.05.32%20AM.png?1550419576283">
         <img id="vricon" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fvr.png?1550449891043">
         <img id="sbFront" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000">
@@ -510,6 +521,8 @@ AFRAME.registerComponent("controller-spin", {
         <img id="record" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
         <img id="loading" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
         <img id="welcomeSign" src="assets/welcomeSign.png">
+        <img id="peterPan" src="assets/peterPan.png">
+        <img id="peterPan2" src="assets/peterPan2.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -563,9 +576,9 @@ AFRAME.registerComponent("controller-spin", {
 
       <!--trees-->
       <a-sphere id="trees" scale="17 17 17" position="0 5 -5" material="src:#tree; repeat:4 1; side:double"
-        color="black"
+
         transparent="true"
-        opacity=".7"
+
         animation__o="property:scale; dur:5000; to: 10 8 10; startEvents:open;"
         animation__c="property:scale; dur:5000; to: 17 17 17; startEvents:close;">
         <!--
@@ -577,19 +590,54 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
       </a-sphere>
 
 
-      <!--display book-->
+      <!--display books-->
+      <a-entity position="2.5 0 -1">
       <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
         <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
       </a-box>
       <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
-        <!--<a-plane position="0 .6 0" height=".9" width=".9" material="src:#p1" rotation="-90 0 0"></a-plane>-->
       </a-box>
       <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+    </a-entity>
+
+        <a-entity position="-3.5 0 -1">
+          <a-box id="bookTop2" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
+          animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
+          animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+          </a-box>
+          <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
+          </a-box>
+          <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+        </a-entity>
+
+        <a-entity position="-3.5 0 3">
+          <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
+          animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
+          animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+          </a-box>
+          <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
+          </a-box>
+          <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+        </a-entity>
+
+        <a-entity position="2.5 0 3">
+          <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
+          animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
+          animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+          </a-box>
+          <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
+          </a-box>
+          <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+        </a-entity>
+
 
       <!--display book screen-->
-      <a-plane id="screen1" position="0 3 -8" width=".001" height="3.5" color="white" transparent="true" opacity=".8" visible="false"
+      <!--<a-plane id="screen1" position="0 3 -8" width=".001" height="3.5" color="white" transparent="true" opacity=".8" visible="false"
        animation__ow="property: width; dur: 1000; loop: false; to: 5; startEvents: open;"
        animation__cw="property: width; dur: 1000; loop: false; to: .001; startEvents: close;">
 
@@ -603,7 +651,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
         <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow" previous button-hover update-progress-bar></a-plane>
         <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
         <a-plane id="progressBar" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
-      </a-plane>
+      </a-plane>-->
 
 
 
@@ -651,7 +699,9 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
         scale=".5 .5 .1"
         position="0 1.6 -1"
         material="src:#vricon"
-        clear-hover>
+        clear-hover
+        auto-enter-vr
+      >
       </a-box>
 
 
