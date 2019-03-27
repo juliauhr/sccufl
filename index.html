@@ -641,18 +641,18 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
       <a-entity id="rig">
         <a-camera position="0 1.6 0"></a-camera>
         <a-entity id="controller" oculus-go-controls ogo-listener controller-spin></a-entity>
-        <a-entity laser-controls="hand: right" line="color: cyan; opacity: 1; far: 25"></a-entity>
+        <a-entity laser-controls="hand: right" line="color: cyan; opacity: 1; far: 5"></a-entity>
       </a-entity>
         <a-plane scale="1 1" position="0 .01 0" material="src:#compass" transparent="true" rotation="-90 0 0"></a-plane>
       </a-entity>
 
 
-      <a-plane id="myEnterVRButton" href="#"
-        scale=".5 .5"
+      <a-box id="myEnterVRButton" href="#"
+        scale=".5 .5 .1"
         position="0 1.6 -1"
         material="src:#vricon"
         clear-hover>
-      </a-plane>
+      </a-box>
 
 
     </a-scene>
