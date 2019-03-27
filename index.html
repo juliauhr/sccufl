@@ -523,6 +523,7 @@ AFRAME.registerComponent("controller-spin", {
         <img id="welcomeSign" src="assets/welcomeSign.png">
         <img id="peterPan" src="assets/peterPan.png">
         <img id="peterPan2" src="assets/peterPan2.png">
+        <img id="ceilingSign" src="assets/ceilingSign.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -568,7 +569,7 @@ AFRAME.registerComponent("controller-spin", {
 
       <!--ceiling screen-->
       <a-plane id="screen2" scale="3 3" position="5.5 2.98 3.5" rotation="90 0 -90" color="white" transparent="true" opacity=".5">
-        <a-plane id="pic2" position="0 0 .01" scale=".5 .7" material="src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000">
+        <a-plane id="pic2" position="0 0 .01" scale=".5 .7" material="src:#ceilingSign">
         </a-plane>
         <a-plane position=".4 0 .02" height=".1" width=".1" material="src:#arrow" rotation="0 0 180" next-page-shelf button-hover></a-plane>
         <a-plane position=".4 -.2 .02" height=".1" width=".1" material="src:#arrow" previous-page-shelf button-hover></a-plane>
@@ -595,7 +596,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
       <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-        <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+        <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
       </a-box>
       <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
       </a-box>
@@ -606,7 +607,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
           <a-box id="bookTop2" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
           animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
           animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
           </a-box>
           <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
           </a-box>
@@ -617,7 +618,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
           <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
           animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
           animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
           </a-box>
           <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
           </a-box>
@@ -628,7 +629,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
           <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
           animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
           animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#sbFront,#paperOpen,#paper,#paper"></a-box>
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
           </a-box>
           <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
           </a-box>
