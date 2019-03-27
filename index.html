@@ -389,13 +389,15 @@ AFRAME.registerComponent("controller-spin", {
           var el = this.el;
           el.addEventListener('click', function () {
             document.querySelector('#pic1').setAttribute('material','src:#loading');
+            //document.querySelector('#loading1').setAttribute('visible','true');
             if(num<pageTotal){
               num++;
             }else{
               num = 1;
             }
-            //var pagePic = 'https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F'+thisBook+'-'+num+'.png?1550596466000';
+            var pagePic = 'https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2F'+thisBook+'-'+num+'.png?1550596466000';
             document.querySelector('#pic1').setAttribute('material','src:'+pagePic);
+            //document.querySelector('#loading1').setAttribute('visible','false');
           });
         }
       });
@@ -499,7 +501,7 @@ AFRAME.registerComponent("controller-spin", {
         <img id="wood" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwood.jpg?1550614252466">
         <img id="wood2" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwood3.jpg?1550885904041">
         <img id="wallpaper" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwallpaper2.jpg?1550881504494">
-        <img id="doorPic" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fwooddoor.png?1550637971075">
+        <img id="doorPic" src="assets/curtain.jpg">
         <img id="rug" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Frug.png?1550638600071">
         <img id="metal" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fmarble.jpg?1550967144090">
         <img id="pillow" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fpillow2.png?1550973632662">
@@ -507,6 +509,7 @@ AFRAME.registerComponent("controller-spin", {
         <img id="brass" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fproducts-4113.jpg?1551230008276">
         <img id="record" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
         <img id="loading" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
+        <img id="welcomeSign" src="assets/welcomeSign.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -532,22 +535,21 @@ AFRAME.registerComponent("controller-spin", {
       <a-box scale="3 .2 20" position="8.5 7.5 -2" material="src:#carpet; repeat:1 10"></a-box>
       <a-box scale="3 .2 20" position="-8.5 7.5 -2" material="src:#carpet; repeat:1 10"></a-box>
 
-      <!--simple stairs
-      <a-box scale="1 1 1" position=".5 .5 3" material="src:#metal" checkpoint blue-check></a-box>
-      <a-box scale="1 1 1" position="2.5 2.5 3" material="src:#metal" checkpoint blue-check></a-box>
-      <a-box scale="1 1 1" position="4.5 4.5 3" material="src:#metal" checkpoint blue-check></a-box>
-      <a-box scale="1 1 1" position="6.5 6.5 3" material="src:#metal" checkpoint blue-check></a-box>
-      -->
       <!--nook-->
       <a-plane scale="3 3" position="5.5 1.5 4.5" rotation="0 180 0" material="src:#wallpaper; side:double"></a-plane>
       <a-plane scale="3 3" position="5.5 2.99 3.5" rotation="90 0 0" material="src:#wallpaper; side:double"></a-plane>
       <a-plane scale="3 3" position="4.001 1.5 3.5" rotation="0 90 0" material="src:#wallpaper; side:double"></a-plane>
       <a-plane scale="3 3" position="6.99 1.5 3.5" rotation="0 -90 0" material="src:#wallpaper; side:double"></a-plane>
-      <a-cylinder scale="1.2 .2 1" position="5.5 .1 3.5" material="src:#pillow" checkpoint blue-check></a-cylinder>
-      <!--door-->
-      <a-box id="door" scale="3 3 .1" position="5.5 1.5 1.95" material="src:#doorPic"
-        animation__o="property: position; dur:3000; to: 8 1.5 2; startEvents:open"
-        animation__c="property: position; dur:3000; to: 5.5 1.5 2; startEvents:close"
+      <a-cylinder scale="1.4 .01 1.2" position="5.5 .01 3.5" material="src:#rug" checkpoint blue-check></a-cylinder>
+      <a-box scale=".1 3 3.1" position="7.05 1.5 3.5" material="src:#wood"></a-box>
+      <a-box scale=".1 3 3.1" position="3.95 1.5 3.5" material="src:#wood"></a-box>
+      <a-box scale="3.2 .1 3.1" position="5.5 3.05 3.5" material="src:#wood"></a-box>
+
+      <a-box id="door" scale="3 3 .05" position="5.5 1.5 2" material="src:#doorPic"
+        animation__o="property: scale; dur:3000; to: .5 3 .05; startEvents:open"
+        animation__opos="property: position; dur:3000; to: 6.8 1.5 2; startEvents:open"
+        animation__c="property: scale; dur:3000; to: 3 3 .05; startEvents:close"
+        animation__cpos="property: position; dur:3000; to: 5.5 1.5 2; startEvents:close"
         open-door>
       </a-box>
 
@@ -590,13 +592,13 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
       <a-plane id="screen1" position="0 3 -8" width=".001" height="3.5" color="white" transparent="true" opacity=".8" visible="false"
        animation__ow="property: width; dur: 1000; loop: false; to: 5; startEvents: open;"
        animation__cw="property: width; dur: 1000; loop: false; to: .001; startEvents: close;">
-        <!--<a-animation attribute="width" begin="goup" dur="1000" from="0" to="5"></a-animation>-->
 
         <a-plane id="pic1" position="0 0 .01" height="3.3" width="0" material="src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000"
         animation__ow="property: width; dur: 1000; loop: false; to: 2.5; startEvents: open;"
         animation__cw="property: width; dur: 1000; loop: false; to: .01; startEvents: close;">
-          <!--<a-animation attribute="width" begin="goup" dur="1000" from="0" to="3"></a-animation>-->
         </a-plane>
+        <a-plane id="loading1" position="0 0 .02" height="3.3" width="2.5" material="src:#loading" visible="false"></a-plane>
+
         <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180" next-page button-hover update-progress-bar></a-plane>
         <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow" previous button-hover update-progress-bar></a-plane>
         <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
@@ -606,7 +608,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
 
 
       <!--shelf book screen-->
-      <a-plane id="screen3" position="0 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="true">
+      <a-plane id="screen3" position="0 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="false">
         <a-plane id="pic3" position="0 0 .01" height="3.3" width="2.5" material="src:https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FsleepingBeauty-1.png?1550596466000"
         ></a-plane>
         <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180" next-page-shelf button-hover></a-plane>
@@ -627,6 +629,11 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
         <a-cone scale=".04 .4 .04" position="1.05 1.105 -1" rotation=" 120 -90 0" material="src:#brass"></a-cone>
         <a-cylinder id="lp" scale=".3 .01 .3" position=" .65 1.005 -1" material="src:#record"
           animation="property:rotation; to: 0 360 0; loop:true; easing:linear; dur:2000; startEvents: start; resumeEvents: resume; pauseEvents: stop;"></a-cylinder>
+      </a-entity>
+
+      <a-entity position="8 .5 -12">
+        <a-box scale="3 1 1" material="src:#wood"></a-box>
+        <a-box scale="2 1.5 1" rotation="0 -45 0" position="-1.85 .25 -.6"material="src:#wood"></a-box>
       </a-entity>
 
       <!--player-->
