@@ -524,6 +524,10 @@ AFRAME.registerComponent("controller-spin", {
         <img id="peterPan" src="assets/peterPan.png">
         <img id="peterPan2" src="assets/peterPan2.png">
         <img id="ceilingSign" src="assets/ceilingSign.png">
+        <img id="vrdoor" src="assets/door.jpg">
+        <img id="pic1" src="assets/pic1.png">
+        <img id="pic2" src="assets/pic2.png">
+        <img id="pic3" src="assets/pic3.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -548,6 +552,13 @@ AFRAME.registerComponent("controller-spin", {
       <a-box scale="20 .2 3" position="0 7.5 -13.5" material="src:#carpet; repeat:10 1"></a-box>
       <a-box scale="3 .2 20" position="8.5 7.5 -2" material="src:#carpet; repeat:1 10"></a-box>
       <a-box scale="3 .2 20" position="-8.5 7.5 -2" material="src:#carpet; repeat:1 10"></a-box>
+
+      <!--pictures-->
+      <a-plane scale="1 1.5" position="-5 9.5 -14" material="src:#pic1"></a-plane>
+      <a-plane scale="1.1 1.6" position="-5 9.5 -14.01" color="white"></a-plane>
+      <a-plane scale="1 1.5" position="0 9.5 -14" material="src:#pic2"></a-plane>
+      <a-plane scale="1 1.5" position="5 9.5 -14" material="src:#pic3"></a-plane>
+
 
       <!--nook-->
       <a-plane scale="3 3" position="5.5 1.5 4.5" rotation="0 180 0" material="src:#wallpaper; side:double"></a-plane>
@@ -596,7 +607,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
       <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-        <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
+        <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
       </a-box>
       <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
       </a-box>
@@ -607,7 +618,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
           <a-box id="bookTop2" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
           animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
           animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
           </a-box>
           <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
           </a-box>
@@ -618,7 +629,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
           <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
           animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
           animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
           </a-box>
           <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
           </a-box>
@@ -629,7 +640,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
           <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
           animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
           animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#bookCover,#paperOpen,#paper,#paper"></a-box>
+            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
           </a-box>
           <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
           </a-box>
@@ -686,7 +697,7 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
       </a-entity>
 
       <!--player-->
-      <a-entity id="outterRig" position="0 0 0">
+      <a-entity id="outterRig" position="0 0 4">
       <a-entity id="rig">
         <a-camera position="0 1.6 0"></a-camera>
         <a-entity id="controller" oculus-go-controls ogo-listener controller-spin></a-entity>
@@ -697,9 +708,9 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
 
 
       <a-box id="myEnterVRButton" href="#"
-        scale=".5 .5 .1"
-        position="0 1.6 -1"
-        material="src:#vricon"
+        scale="1 2.3 .1"
+        position="0 1.5 2.5"
+        material="src:#vrdoor"
         clear-hover
         auto-enter-vr
       >
