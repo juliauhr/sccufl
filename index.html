@@ -4,6 +4,7 @@
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/elbobo/aframe-multisrc-component/b6d23310/dist/0.3/aframe-multisrc-component.js"></script>
     <script src="https://rawgit.com/ngokevin/aframe-animation-component/master/dist/aframe-animation-component.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
 
 
     <script>
@@ -526,8 +527,9 @@ AFRAME.registerComponent("controller-spin", {
         <img id="ceilingSign" src="assets/ceilingSign.png">
         <img id="vrdoor" src="assets/door.jpg">
         <img id="artwork1" src="assets/pic1.png">
-        <img id="artwork2" src="assets/pic2.png">
+        <img id="artwork2" src="assets/waterfall.gif">
         <img id="artwork3" src="assets/pic3.png">
+        <img id="sccuflSign" src="assets/sccuflSign.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -556,7 +558,11 @@ AFRAME.registerComponent("controller-spin", {
       <!--pictures-->
       <a-plane scale="1 1.5" position="-5 9.5 -14" material="src:#artwork1"></a-plane>
       <a-plane scale="1.1 1.6" position="-5 9.5 -14.01" color="white"></a-plane>
-      <a-plane scale="1 1.5" position="0 9.5 -14" material="src:#artwork2"></a-plane>
+      <a-plane scale="1 1.5" position="0 9.5 -14" material="shader:gif; src:url(https://media.giphy.com/media/3MiabIHQrDKNh8FBTc/giphy.gif)"></a-plane>
+      <!--https://media.giphy.com/media/3MiabIHQrDKNh8FBTc/giphy.gif
+      https://media.giphy.com/media/1ymLxtfooy9Xo5Nky1/giphy.gif
+    -->
+
       <a-plane scale="1 1.5" position="5 9.5 -14" material="src:#artwork3"></a-plane>
 
 
@@ -587,18 +593,10 @@ AFRAME.registerComponent("controller-spin", {
       </a-plane>
 
       <!--trees-->
-      <a-sphere id="trees" scale="17 17 17" position="0 5 -5" material="src:#tree; repeat:4 1; side:double"
-
+      <a-sphere id="trees" scale="17 17 17" position="0 6 -5" material="src:#tree; repeat:4 1; side:double"
         transparent="true"
-
         animation__o="property:scale; dur:5000; to: 10 8 10; startEvents:open;"
         animation__c="property:scale; dur:5000; to: 17 17 17; startEvents:close;">
-        <!--
-animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
-        animation__c="property:position; dur:5000; to: 0 -10 -5; startEvents:close;"
--->
-
-
       </a-sphere>
 
 
@@ -691,9 +689,11 @@ animation__o="property:position; dur:5000; to: 0 5 -5; startEvents:open;"
           animation="property:rotation; to: 0 360 0; loop:true; easing:linear; dur:2000; startEvents: start; resumeEvents: resume; pauseEvents: stop;"></a-cylinder>
       </a-entity>
 
+      <!--desk-->
       <a-entity position="8 .5 -12">
         <a-box scale="3 1 1" material="src:#wood"></a-box>
         <a-box scale="2 1.5 1" rotation="0 -45 0" position="-1.85 .25 -.6"material="src:#wood"></a-box>
+        <a-plane scale=".8 1" position="0 1 .2" rotation="-0 0 0"material="src:#sccuflSign"></a-plane>
       </a-entity>
 
       <!--player-->
