@@ -515,13 +515,34 @@ AFRAME.registerComponent("controller-spin", {
      AFRAME.registerComponent('move-elevator', {
        init:function() {
          var el = this.el;
+         var open = false;
+         var elevatorUp = false;
          el.addEventListener('click', function () {
-           document.querySelector('#elevator').object3D.position.set(8.5, 16, -13.5);
-           //8.5 8 -13.5
-           document.querySelector('#outterRig').object3D.position.set(8.5, 16, -13.5);
-           //document.querySelector('#elevatorFloor').setAttribute('color','red');
 
+           if(!open){
+             document.querySelector('#elevatorDoor').emit('open');
+           }else{
+             document.querySelector('#elevatorDoor').emit('close');
+             elevatorUp = !elevatorUp;
+           }
+          open = !open;
         });
+
+        el.addEventListener('animationcomplete', function () {
+          if(!open){
+            if(elevatorUp){
+              document.querySelector('#elevator').object3D.position.set(8.5, 16, -13.5);
+              document.querySelector('#outterRig').object3D.position.set(8.5, 16, -13.5);
+              //document.querySelector('#elevatorDoor').emit('open');
+            }else{
+              document.querySelector('#elevator').object3D.position.set(8.5, 7.8, -13.5);
+              document.querySelector('#outterRig').object3D.position.set(8.5, 7.8, -13.5);
+              //document.querySelector('#elevatorDoor').emit('open');
+            }
+          }
+
+       });
+
       }
     })
 
@@ -538,7 +559,7 @@ AFRAME.registerComponent("controller-spin", {
   </head>
   <body>
 
-    <a-scene antialias="true" cursor="rayOrigin:mouse" vr-mode-ui="enterVRButton: #myEnterVRButton">
+    <a-scene antialias="true" cursor="rayOrigin:mouse" vr-mode-ui="enterVRButton: #myEnterVRButton" background="color:black">
       <a-assets>
         <img id="arrow" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Farrow.png?1548781199276">
         <img id="bookCover" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2FNew%20Piskel%20(5).png?1548789571820">
@@ -582,8 +603,9 @@ AFRAME.registerComponent("controller-spin", {
         <img id="artwork2" src="assets/waterfall.gif">
         <img id="artwork3" src="assets/pic3.png">
         <img id="sccuflSign" src="assets/sccuflSign.png">
-        <img id="space" src="assets/space.png">
+        <img id="space" src="assets/sky.jpeg">
         <img id="moonPic" src="assets/moon.jpg">
+        <img id="elevatorDoorPic" src="assets/elevatorDoor.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -611,18 +633,27 @@ AFRAME.registerComponent("controller-spin", {
 
       <!--pictures-->
       <a-plane scale="1 1.5" position="-5 9.5 -14" material="src:#artwork1"></a-plane>
-      <a-plane scale="1.1 1.6" position="-5 9.5 -14.01" color="white"></a-plane>
       <a-plane scale="1 1.5" position="0 9.5 -14" material="shader:gif; src:url(https://media.giphy.com/media/3MiabIHQrDKNh8FBTc/giphy.gif)"></a-plane>
       <!--https://media.giphy.com/media/3MiabIHQrDKNh8FBTc/giphy.gif
       https://media.giphy.com/media/1ymLxtfooy9Xo5Nky1/giphy.gif
     -->
       <a-plane scale="1 1.5" position="5 9.5 -14" material="src:#artwork3"></a-plane>
       <!--elevator-->
-      <a-entity id="elevator" position="8.5 8 -13.5">
-        <a-box id="elevatorFloor" scale="1.5 .2 1.5" position="0 -.2 0" color="white" move-elevator></a-box>
+      <a-entity id="elevator" position="8.5 7.8 -13.5">
+        <a-box scale="2 4 .1" position="0 2 -1" material="src:#wood"></a-box>
+        <a-box scale="2 4 .1" position="0 2 1" material="src:#wood"></a-box>
+        <a-box scale=".1 4 2" position="1 2 0" material="src:#wood"></a-box>
+        <a-box id="elevatorDoor" scale=".1 4 2" position="-1 2 0" material="src:#elevatorDoorPic" move-elevator blue-check
+          animation__o = "property:scale; dur:3000; to: .1 4 .1; startEvents:open"
+          animation__c = "property:scale; dur:3000; to: .1 4 2; startEvents:close"
+        ></a-box>
+        <a-box id="elevatorFloor" scale="2 .2 2" position="0 0 0" material="src:#wood" checkpoint blue-check></a-box>
       </a-entity>
       <!--moon-->
-      <a-sphere scale="10 10 10" position="-30 50 -30" material="src:#moonPic"></a-sphere>
+      <a-sphere scale="10 10 10" position="-30 50 -30" rotation="-10 0 0" material="src:#moonPic"
+        animation="property:rotation; dur:50000; to:-10 360 0; loop:true; easing:linear;"
+      >
+      </a-sphere>
       <!--nook-->
       <a-plane scale="3 3" position="5.5 1.5 4.5" rotation="0 180 0" material="src:#wallpaper; side:double"></a-plane>
       <a-plane scale="3 3" position="5.5 2.99 3.5" rotation="90 0 0" material="src:#wallpaper; side:double"></a-plane>
@@ -638,7 +669,7 @@ AFRAME.registerComponent("controller-spin", {
         animation__opos="property: position; dur:3000; to: 6.8 1.5 2; startEvents:open"
         animation__c="property: scale; dur:3000; to: 3 3 .05; startEvents:close"
         animation__cpos="property: position; dur:3000; to: 5.5 1.5 2; startEvents:close"
-        open-door>
+        open-door blue-check>
       </a-box>
 
       <!--ceiling screen-->
@@ -773,7 +804,7 @@ AFRAME.registerComponent("controller-spin", {
       >
       </a-box>
 
-      <a-sky src="#space"></a-sky>
+      <!--<a-sky src="#space"></a-sky>-->
     </a-scene>
   </body>
 </html>
