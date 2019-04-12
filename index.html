@@ -359,6 +359,7 @@ AFRAME.registerComponent("controller-spin", {
               //document.querySelector('#screen1').emit('open');
               //document.querySelector('#pic1').emit('open');
               document.querySelector('#trees').emit('open');
+              document.querySelector('#trees').setAttribute('visible','true');
               wall3.setAttribute('material','src:#peterPan; repeat:1 1');
               wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
             }else{
@@ -561,6 +562,15 @@ AFRAME.registerComponent("controller-spin", {
      }
    })
 
+   AFRAME.registerComponent('move-bookcase', {
+     init:function() {
+       var el = this.el;
+       el.addEventListener('click', function () {
+         document.querySelector('#elevatorBookcase').emit('up');
+      });
+    }
+  })
+
 
     /* AFRAME.registerComponent('auto-enter-vr', {
        init: function () {
@@ -663,11 +673,11 @@ AFRAME.registerComponent("controller-spin", {
     -->
       <a-plane scale="1 1.5" position="5 9.5 -14" material="src:#artwork3"></a-plane>
       <!--elevator-->
-      <a-entity id="elevator" position="8.5 0 3" rotation="0 -90 0">
-        <a-box scale="2 4 .1" position="0 2 -1" material="src:#wood"></a-box>
-        <a-box scale="2 4 .1" position="0 2 1" material="src:#wood"></a-box>
-        <a-box scale=".1 4 2" position="1 2 0" material="src:#wood"></a-box>
-        <a-box id="elevatorDoor" scale=".1 4 2" position="-1 2 0" material="src:#elevatorDoorPic" open-elevator blue-check
+      <a-entity id="elevator" position="8.5 0 3.1" rotation="0 -90 0">
+        <a-box scale="2 3.8 .1" position="0 1.9 -1" material="src:#wood"></a-box>
+        <a-box scale="2 3.8 .1" position="0 1.9 1" material="src:#wood"></a-box>
+        <a-box scale=".1 3.8 2" position="1 1.9 0" material="src:#wood"></a-box>
+        <a-box id="elevatorDoor" scale=".1 3.6 2" position="-1 1.8 0" material="src:#elevatorDoorPic" open-elevator blue-check
           animation__o = "property:scale; dur:3000; to: .1 4 .2; startEvents:open"
           animation__c = "property:scale; dur:3000; to: .1 4 2; startEvents:close"
         ></a-box>
@@ -675,10 +685,14 @@ AFRAME.registerComponent("controller-spin", {
           animation = "property:rotation; to: 360 0 0; from: 0 0 0; dur:3000; startEvents:spin;"
         ></a-box>
         <a-box id="elevatorFloor" scale="2 .2 2" position="0 0 0" material="src:#wood" checkpoint blue-check></a-box>
-        <a-box scale="2 .2 2" position="0 3.9 0" material="src:#wood"></a-box>
+        <a-box scale="2 .2 2" position="0 3.7 0" material="src:#wood"></a-box>
       </a-entity>
+      <a-box id="elevatorBookcase" scale=".01 3.8 3" position="8.5 1.9 2" rotation="0 90 0" material="src:#wall" move-bookcase
+        animation="property:position; dur:5000; to: 8.5 5.6 2; startEvents:up"
+      ></a-box>
+
       <!--moon-->
-      <a-sphere scale="10 10 10" position="-20 50 30" rotation="-10 0 0" material="src:#moonPic"
+      <a-sphere scale="10 10 10" position="-30 50 30" rotation="-10 0 0" material="src:#moonPic"
         animation="property:rotation; dur:50000; to:-10 360 0; loop:true; easing:linear;"
       ></a-sphere>
       <!--nook-->
