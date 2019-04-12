@@ -624,9 +624,16 @@ AFRAME.registerComponent("controller-spin", {
         <img id="peterPan2" src="assets/peterPan2.png">
         <img id="ceilingSign" src="assets/ceilingSign.png">
         <img id="vrdoor" src="assets/door.jpg">
-        <img id="artwork1" src="assets/pic1.png">
-        <img id="artwork2" src="assets/waterfall.gif">
-        <img id="artwork3" src="assets/pic3.png">
+
+        <img id="artwork1" src="assets/wallArt/pic1.png">
+        <img id="artwork2" src="assets/wallArt/pic2.png">
+        <img id="artwork3" src="assets/wallArt/pic3.png">
+        <img id="artwork4" src="assets/wallArt/pic4.png">
+        <img id="artwork5" src="assets/wallArt/pic5.png">
+        <img id="artwork6" src="assets/wallArt/pic6.png">
+        <img id="artwork7" src="assets/wallArt/pic7.png">
+        <img id="artwork8" src="assets/wallArt/pic8.png">
+
         <img id="sccuflSign" src="assets/sccuflSign.png">
         <img id="space" src="assets/sky.jpeg">
         <img id="moonPic" src="assets/moon.jpg">
@@ -668,10 +675,16 @@ AFRAME.registerComponent("controller-spin", {
       <!--pictures-->
       <a-plane scale="1 1.5" position="-5 9.5 -14" material="src:#artwork1"></a-plane>
       <a-plane scale="1 1.5" position="0 9.5 -14" material="shader:gif; src:url(https://media.giphy.com/media/3MiabIHQrDKNh8FBTc/giphy.gif)"></a-plane>
-      <!--https://media.giphy.com/media/3MiabIHQrDKNh8FBTc/giphy.gif
-      https://media.giphy.com/media/1ymLxtfooy9Xo5Nky1/giphy.gif
-    -->
-      <a-plane scale="1 1.5" position="5 9.5 -14" material="src:#artwork3"></a-plane>
+      <a-plane scale="1 1.5" position="5 9.5 -14" material="src:#artwork2"></a-plane>
+
+      <a-plane scale="1 1.5" position="-9 9.5 -10" rotation="0 90 0" material="src:#artwork3"></a-plane>
+      <a-plane scale="1 1.5" position="-9 9.5 -5" rotation="0 90 0" material="src:#artwork4"></a-plane>
+      <a-plane scale="1 1.5" position="-9 9.5 -0" rotation="0 90 0" material="src:#artwork5"></a-plane>
+
+      <a-plane scale="1 1.5" position="9 9.5 -10" rotation="0 -90 0" material="src:#artwork6"></a-plane>
+      <a-plane scale="1 1.5" position="9 9.5 -5" rotation="0 -90 0" material="src:#artwork7"></a-plane>
+      <a-plane scale="1 1.5" position="9 9.5 -0" rotation="0 -90 0" material="src:#artwork8"></a-plane>
+
       <!--elevator-->
       <a-entity id="elevator" position="8.5 0 3.1" rotation="0 -90 0">
         <a-box scale="2 3.8 .1" position="0 1.9 -1" material="src:#wood"></a-box>
@@ -792,8 +805,6 @@ AFRAME.registerComponent("controller-spin", {
         <a-plane id="progressBar" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
       </a-plane>-->
 
-
-
       <!--shelf book screen-->
       <a-plane id="screen3" position="-.5 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="false">
         <a-plane id="pic3" position="0 0 .01" height="3.3" width="2.5" color="white"
@@ -803,8 +814,6 @@ AFRAME.registerComponent("controller-spin", {
         <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
         <a-plane id="progressBar3" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
       </a-plane>
-
-
 
       <!--gramophone-->
       <a-entity position="-8 0 -11">
@@ -822,7 +831,7 @@ AFRAME.registerComponent("controller-spin", {
       <a-entity position="8 .5 -12">
         <a-box scale="3 1 1" material="src:#wood"></a-box>
         <a-box scale="2 1.5 1" rotation="0 -45 0" position="-1.85 .25 -.6"material="src:#wood"></a-box>
-        <a-plane scale=".8 1" position="0 1 .2" rotation="-0 0 0"material="src:#sccuflSign"></a-plane>
+        <a-plane scale=".8 1" position="-.5 1 .2" rotation="-0 0 0" material="src:#sccuflSign"></a-plane>
       </a-entity>
 
       <!--player-->
@@ -835,15 +844,13 @@ AFRAME.registerComponent("controller-spin", {
         <a-plane scale="1 1" position="0 .01 0" material="src:#compass" transparent="true" rotation="-90 0 0"></a-plane>
       </a-entity>
 
-
       <a-box id="myEnterVRButton" href="#"
         scale="1 2.3 .1"
-        position="0 1.5 2.5"
+        position="0 1.15 2.5"
         material="src:#vrdoor"
         clear-hover
         auto-enter-vr
-      >
-      </a-box>
+      ></a-box>
 
       <a-sky src="#starSky"></a-sky>
     </a-scene>
