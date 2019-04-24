@@ -376,12 +376,12 @@ AFRAME.registerComponent("controller-spin", {
             if(bookOpen){
               el.emit('open');
               el.querySelector('#flipPage').emit('open');
-              document.querySelector('#trees').emit('open');
-              document.querySelector('#trees').setAttribute('visible','true');
+              //document.querySelector('#trees').emit('open');
+              //document.querySelector('#trees').setAttribute('visible','true');
               wall3.setAttribute('material','src:#peterPan; repeat:1 1');
               wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
             }else{
-              document.querySelector('#trees').emit('close');
+              //document.querySelector('#trees').emit('close');
               el.emit('close');
               wall3.setAttribute('material','src:#wall; repeat:3 3');
               wall4.setAttribute('material','src:#wall; repeat:3 3');
@@ -548,7 +548,7 @@ AFRAME.registerComponent("controller-spin", {
             if(elevatorUp){
               document.querySelector('#elevator').object3D.position.set(8.5, 15.1, 3);
               document.querySelector('#outterRig').object3D.position.set(8.5, 15.1, 3);
-              document.querySelector('#trees').setAttribute('visible','false');
+              //document.querySelector('#trees').setAttribute('visible','false');
               //document.querySelector('#elevatorDoor').emit('open');
             }else{
               document.querySelector('#elevator').object3D.position.set(8.5, 0, 3);
@@ -677,10 +677,10 @@ AFRAME.registerComponent("controller-spin", {
       <a-plane scale="20 20" position="0 15 -5" rotation="90 0 90" material="src:#ceiling; side:double"></a-plane>
       <!--roof-->
       <a-plane scale="20 20" position="0 15.1 -5" rotation="90 0 90" material="src:#starSky; side:double"></a-plane>
-      <a-box scale="1 .1 1" position="8 15.1 0" color="white" checkpoint></a-box>
-      <a-box scale="1 .1 1" position="7 15.1 -5" color="white" checkpoint></a-box>
-      <a-box scale="1 .1 1" position="5 15.1 -10" color="white" checkpoint></a-box>
-      <a-box scale="1 .1 1" position="1 15.1 -12" color="white" checkpoint></a-box>
+      <a-box scale="1 .1 1" position="10 15.2 0" material="src:#carpet" checkpoint blue-check></a-box>
+      <a-box scale="1 .1 1" position="7 15.2 -5" material="src:#carpet" checkpoint blue-check></a-box>
+      <a-box scale="1 .1 1" position="5 15.2 -10" material="src:#carpet" checkpoint blue-check></a-box>
+      <a-box scale="1 .1 1" position="1 15.2 -12" material="src:#carpet" checkpoint blue-check></a-box>
       <!--2nd floor-->
       <a-box scale="20 .2 3" position="0 7.5 -13.5" material="src:#carpet; repeat:10 1"></a-box>
       <a-box scale="3 .2 20" position="8.5 7.5 -2" material="src:#carpet; repeat:1 10"></a-box>
@@ -748,13 +748,13 @@ AFRAME.registerComponent("controller-spin", {
         <a-plane position=".4 -.2 .02" height=".1" width=".1" material="src:#arrow" previous-page-shelf button-hover></a-plane>
       </a-plane>
 
-      <!--trees-->
+      <!--trees
       <a-sphere id="trees" scale="17 17 17" position="0 6 -5" material="src:#tree; repeat:4 1; side:double"
         transparent="true"
         animation__o="property:scale; dur:5000; to: 10 8 10; startEvents:open;"
         animation__c="property:scale; dur:5000; to: 17 17 17; startEvents:close;">
       </a-sphere>
-
+    -->
 
       <!--display books-->
     <a-entity position="2.5 0 -1">
