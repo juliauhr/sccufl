@@ -12,8 +12,8 @@
       //array of books with info
       var shelfBooks=[];
       shelfBooks.push({
-        title:"Belle_au_bois_dormant",
-        id:"belle_au_bois_dormant",
+        title:"Belle au bois dormant",
+        id:"dormant",
         author:"Perrault, Charles",
         date:"1700",
         call:"PQ1877.A7 1700",
@@ -404,8 +404,8 @@ AFRAME.registerComponent("controller-spin", {
               var id = shelfBooks[num].id;
               currentBook =  id;
               currentBookPageCount = shelfBooks[num].pages;
-              document.querySelector('#pic3').setAttribute('material','src: books/'+id+'/'+id+'-1.png');
-              document.querySelector('#pic2').setAttribute('material','src: books/'+id+'/'+id+'-1.png');
+              document.querySelector('#pic3').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
+              document.querySelector('#pic2').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
           });
         }
       });
@@ -419,8 +419,8 @@ AFRAME.registerComponent("controller-spin", {
             }else{
               currentPage = 1;
             }
-            document.querySelector('#pic3').setAttribute('material','src: books/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
-            document.querySelector('#pic2').setAttribute('material','src: books/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#pic3').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#pic2').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
           });
         }
       });
@@ -433,7 +433,7 @@ AFRAME.registerComponent("controller-spin", {
             }else{
               currentPage = currentBookPageCount;
             }
-            document.querySelector('#pic3').setAttribute('material','src: books/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#pic3').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
           });
         }
       });
