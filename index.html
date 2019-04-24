@@ -91,6 +91,30 @@
         call:"",
         pages:65
       });
+      shelfBooks.push({
+        title:"dormant",
+        id:"dormant",
+        author:"craiggy",
+        date:"",
+        call:"",
+        pages:34
+      });
+      shelfBooks.push({
+        title:"leCabinet",
+        id:"leCabinet",
+        author:"craiggy",
+        date:"",
+        call:"",
+        pages:34
+      });
+      shelfBooks.push({
+        title:"lesContes",
+        id:"lesContes",
+        author:"craiggy",
+        date:"",
+        call:"",
+        pages:34
+      });
 
 
       AFRAME.registerComponent('setup', {
@@ -344,29 +368,19 @@ AFRAME.registerComponent("controller-spin", {
 
 
       AFRAME.registerComponent('open-book', {
-        //schema:{
-          //book:{type:'string',default:'sleepingBeauty'}
-        //}
         init: function () {
           var el = this.el;
           var bookOpen = false;
           el.addEventListener('click', function () {
             bookOpen = !bookOpen;
             if(bookOpen){
-              //screen1.setAttribute('visible','true');
-              //document.querySelector('#bookTop').emit('open');
               el.emit('open');
-              //document.querySelector('#screen1').emit('open');
-              //document.querySelector('#pic1').emit('open');
+              el.querySelector('#flipPage').emit('open');
               document.querySelector('#trees').emit('open');
               document.querySelector('#trees').setAttribute('visible','true');
               wall3.setAttribute('material','src:#peterPan; repeat:1 1');
               wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
             }else{
-              //screen1.setAttribute('visible','false');
-              //document.querySelector('#bookTop').emit('close');
-              //document.querySelector('#screen1').emit('close');
-              //document.querySelector('#pic1').emit('close');
               document.querySelector('#trees').emit('close');
               el.emit('close');
               wall3.setAttribute('material','src:#wall; repeat:3 3');
@@ -477,8 +491,8 @@ AFRAME.registerComponent("controller-spin", {
           var el = this.el;
           el.addEventListener('click', function () {
             var Xpos = -2.5+((num*(5/pageTotal))/2);
-            progressBar.setAttribute('width',(num*(5/pageTotal)));
-            progressBar.setAttribute('position', {x:Xpos, y:-1.79, z:.02});
+            progressBar3.setAttribute('width',(num*(5/pageTotal)));
+            progressBar3.setAttribute('position', {x:Xpos, y:-1.79, z:.02});
           });
         }
       });
@@ -743,13 +757,18 @@ AFRAME.registerComponent("controller-spin", {
 
 
       <!--display books-->
-      <a-entity position="2.5 0 -1">
+    <a-entity position="2.5 0 -1">
       <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
         <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
       </a-box>
       <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
+      </a-box>
+      <!--page flip-->
+      <a-box id="flipPage" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity=".3"
+        animation="property: rotation; from: 40 0 0; to: 40 0 180; dur:3000; loop:true; startEvents:open;">
+        <a-box scale=".5 1 1" position=".25 0 0" color="red"></a-box>
       </a-box>
       <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
     </a-entity>
@@ -809,10 +828,12 @@ AFRAME.registerComponent("controller-spin", {
       <a-plane id="screen3" position="-.5 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="false">
         <a-plane id="pic3" position="0 0 .01" height="3.3" width="2.5" color="white"
         ></a-plane>
-        <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180" next-page-shelf button-hover></a-plane>
-        <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow" previous-page-shelf button-hover></a-plane>
+        <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180"
+        next-page-shelf button-hover update-progress-bar></a-plane>
+        <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow"
+        previous-page-shelf button-hover update-progress-bar></a-plane>
         <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
-        <a-plane id="progressBar3" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
+        <!--<a-plane id="progressBar3" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>-->
       </a-plane>
 
       <!--gramophone-->
