@@ -30,8 +30,8 @@
       shelfBooks.push({
         title:"fairiesRepertory",
         id:"Fairies Repertory",
-        author:"",
-        date:"",
+        author:"Goodfellow, Robin",
+        date:"1820?",
         call:"",
         pages:199
       });
@@ -46,8 +46,8 @@
       shelfBooks.push({
         title:"Little Red Riding Hood",
         id:"littleRedRidingHood",
-        author:"",
-        date:"",
+        author:"Perrault, Charles",
+        date:"1898",
         call:"",
         pages:12
       });
@@ -86,8 +86,8 @@
       shelfBooks.push({
         title:"Struwwelpeter",
         id:"struwwelpeter",
-        author:"",
-        date:"",
+        author:"Hoffmann, Heinrich",
+        date:"1848-1870",
         call:"",
         pages:27
       });
@@ -374,6 +374,38 @@ AFRAME.registerComponent("controller-spin", {
         }
       });
 
+      AFRAME.registerComponent('open-cinderella', {
+        init: function () {
+          var el = this.el;
+          var bookOpen = false;
+          var pageTot = 12;
+          var pag = 2;
+          el.addEventListener('click', function () {
+            if(!bookOpen){
+              el.emit('open');
+              bookOpen = true;
+              wall3.setAttribute('material','src:#peterPan; repeat:1 1');
+              wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
+              bookTop.setAttribute('material','src:#cinderellaCover');
+              bookBottom.setAttribute('material','src:#cinderellaCover');
+            }else{
+              if(pag<pageTot){
+                document.querySelector('#flipPage').emit('open');
+                bookTop.setAttribute('material','src:assets/cinderella/cinderella-'+pag+'.png');
+                bookBottom.setAttribute('material','src:assets/cinderella/cinderella-'+pag+'.png');
+              }else{
+                el.emit('close');
+                bookOpen = false;
+                pag = 2;
+                wall3.setAttribute('material','src:#wall; repeat:3 3');
+                wall4.setAttribute('material','src:#wall; repeat:3 3');
+              }
+
+            }
+          });
+        }
+      });
+
       var currentBook = "";
       var currentBookPageCount = 1;
       var currentPage = 1;
@@ -639,6 +671,7 @@ AFRAME.registerComponent("controller-spin", {
         <img id="roof" src="assets/roof.png">
         <img id="starSky" src="https://3.bp.blogspot.com/-J6CKUkxE_w8/XAmedzdrZUI/AAAAAAAAKl4/lmnPythyI2wi8qqeYmIyZKOpvEWiKtDMACLcBGAs/s1600/sky.png">
 
+        <img id="cinderellaCover" src="https://cdn.glitch.com/b5fa0f89-80f5-4507-9deb-983798ac61d3%2Fcinderella1904-1.png?1556155392109">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -742,17 +775,17 @@ AFRAME.registerComponent("controller-spin", {
 
       <!--display books-->
     <a-entity position="2.5 0 -1">
-      <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
+      <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-cinderella
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-        <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
+        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
       </a-box>
-      <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
+      <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
       </a-box>
       <!--page flip-->
-      <a-box id="flipPage" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity=".3"
-        animation="property: rotation; from: 40 0 0; to: 40 0 180; dur:3000; loop:true; startEvents:open;">
-        <a-box scale=".5 1 1" position=".25 0 0" color="red"></a-box>
+      <a-box id="flipPage" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
+        animation="property: rotation; from: 40 0 0; to: 40 0 180; dur:3000; startEvents:open;">
+        <a-box scale=".5 1 1" position=".25 0 0" material="src:#paperOpen"></a-box>
       </a-box>
       <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
     </a-entity>
