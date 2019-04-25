@@ -393,6 +393,7 @@ AFRAME.registerComponent("controller-spin", {
                 document.querySelector('#flipPage').emit('open');
                 bookTop.setAttribute('material','src:assets/cinderella/cinderella-'+pag+'.png');
                 bookBottom.setAttribute('material','src:assets/cinderella/cinderella-'+pag+'.png');
+                pag++;
               }else{
                 el.emit('close');
                 bookOpen = false;
