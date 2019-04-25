@@ -379,7 +379,7 @@ AFRAME.registerComponent("controller-spin", {
           var el = this.el;
           var bookOpen = false;
           var pageTot = 12;
-          var pag = 2;
+          var pag = 1;
           el.addEventListener('click', function () {
             if(!bookOpen){
               el.emit('open');
@@ -389,7 +389,7 @@ AFRAME.registerComponent("controller-spin", {
               bookTop.setAttribute('material','src:#cinderellaCover');
               bookBottom.setAttribute('material','src:#cinderellaCover');
             }else{
-              if(pag<pageTot){
+              if(pag<=pageTot){
                 document.querySelector('#flipPage').emit('open');
                 bookTop.setAttribute('material','src:assets/cinderella/cinderella-'+pag+'.png');
                 bookBottom.setAttribute('material','src:assets/cinderella/cinderella-'+pag+'.png');
@@ -414,7 +414,7 @@ AFRAME.registerComponent("controller-spin", {
           var el = this.el;
           var bookOpen = false;
           var pageTot = 18;
-          var pag = 2;
+          var pag = 1;
           el.addEventListener('click', function () {
             if(!bookOpen){
               el.emit('open');
@@ -424,7 +424,7 @@ AFRAME.registerComponent("controller-spin", {
               bookTop2.setAttribute('material','src:#doreCover');
               bookBottom2.setAttribute('material','src:#doreCover');
             }else{
-              if(pag<pageTot){
+              if(pag<=pageTot){
                 flipPage2.emit('open');
                 bookTop2.setAttribute('material','src:assets/dore/red-'+pag+'.png');
                 bookBottom2.setAttribute('material','src:assets/dore/red-'+pag+'.png');
@@ -432,7 +432,7 @@ AFRAME.registerComponent("controller-spin", {
               }else{
                 el.emit('close');
                 bookOpen = false;
-                pag = 2;
+                pag = 1;
                 bookTop2.setAttribute('material','src:#paperOpen');
                 bookBottom2.setAttribute('material','src:#paperOpen');
                 flipPage2.setAttribute('rotation','40 0 0');
@@ -459,7 +459,7 @@ AFRAME.registerComponent("controller-spin", {
               bookTop3.setAttribute('material','src:#stereoCover');
               bookBottom3.setAttribute('material','src:#stereoCover');
             }else{
-              if(pag<pageTot){
+              if(pag<=pageTot){
                 flipPage3.emit('open');
                 bookTop3.setAttribute('material','src:assets/stereograms/stereo-'+pag+'.png');
                 bookBottom3.setAttribute('material','src:assets/stereograms/stereo-'+pag+'.png');
@@ -484,7 +484,7 @@ AFRAME.registerComponent("controller-spin", {
           var el = this.el;
           var bookOpen = false;
           var pageTot = 9;
-          var pag = 2;
+          var pag = 1;
           el.addEventListener('click', function () {
             if(!bookOpen){
               el.emit('open');
@@ -494,7 +494,7 @@ AFRAME.registerComponent("controller-spin", {
               bookTop4.setAttribute('material','src:#easyCover');
               bookBottom4.setAttribute('material','src:#easyCover');
             }else{
-              if(pag<pageTot){
+              if(pag<=pageTot){
                 flipPage4.emit('open');
                 bookTop4.setAttribute('material','src:assets/easy/easy-'+pag+'.png');
                 bookBottom4.setAttribute('material','src:assets/easy/easy-'+pag+'.png');
@@ -894,7 +894,7 @@ AFRAME.registerComponent("controller-spin", {
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
         <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
       </a-box>
-      <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
+      <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#cinderellaCover" shadow handle-events>
       </a-box>
       <!--page flip-->
       <a-box id="flipPage" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
@@ -910,7 +910,7 @@ AFRAME.registerComponent("controller-spin", {
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
         <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
       </a-box>
-      <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
+      <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#doreCover" shadow handle-events>
       </a-box>
       <!--page flip-->
       <a-box id="flipPage2" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
@@ -926,7 +926,7 @@ AFRAME.registerComponent("controller-spin", {
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
         <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
       </a-box>
-      <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
+      <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#stereoCover" shadow handle-events>
       </a-box>
       <!--page flip-->
       <a-box id="flipPage3" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
@@ -942,7 +942,7 @@ AFRAME.registerComponent("controller-spin", {
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
         <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
       </a-box>
-      <a-box id="bookBottom4" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
+      <a-box id="bookBottom4" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#easyCover" shadow handle-events>
       </a-box>
       <!--page flip-->
       <a-box id="flipPage4" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
