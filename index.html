@@ -388,6 +388,7 @@ AFRAME.registerComponent("controller-spin", {
               wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
               bookTop.setAttribute('material','src:#cinderellaCover');
               bookBottom.setAttribute('material','src:#cinderellaCover');
+              bookMiddle.setAttribute('material','src:#paperOpen');
             }else{
               if(pag<=pageTot){
                 document.querySelector('#flipPage').emit('open');
@@ -398,9 +399,10 @@ AFRAME.registerComponent("controller-spin", {
                 el.emit('close');
                 bookOpen = false;
                 pag = 2;
-                bookTop.setAttribute('material','src:#paperOpen');
-                bookBottom.setAttribute('material','src:#paperOpen');
-                bookBottom.setAttribute('rotation','40 0 0');
+                bookTop.setAttribute('material','src:#cinderellaCover');
+                bookBottom.setAttribute('material','src:#cinderellaCover');
+                bookMiddle.setAttribute('material','src:#cinderellaCover');
+                flipPage.setAttribute('rotation','40 0 0');
                 wall3.setAttribute('material','src:#wall; repeat:3 3');
                 wall4.setAttribute('material','src:#wall; repeat:3 3');
               }
@@ -423,6 +425,7 @@ AFRAME.registerComponent("controller-spin", {
               wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
               bookTop2.setAttribute('material','src:#doreCover');
               bookBottom2.setAttribute('material','src:#doreCover');
+              bookMiddle2.setAttribute('material','src:#paperOpen');
             }else{
               if(pag<=pageTot){
                 flipPage2.emit('open');
@@ -433,8 +436,9 @@ AFRAME.registerComponent("controller-spin", {
                 el.emit('close');
                 bookOpen = false;
                 pag = 1;
-                bookTop2.setAttribute('material','src:#paperOpen');
-                bookBottom2.setAttribute('material','src:#paperOpen');
+                bookTop2.setAttribute('material','src:#doreCover');
+                bookBottom2.setAttribute('material','src:#doreCover');
+                bookMiddle2.setAttribute('material','src:#doreCover');
                 flipPage2.setAttribute('rotation','40 0 0');
                 wall3.setAttribute('material','src:#wall; repeat:3 3');
                 wall4.setAttribute('material','src:#wall; repeat:3 3');
@@ -458,6 +462,7 @@ AFRAME.registerComponent("controller-spin", {
               wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
               bookTop3.setAttribute('material','src:#stereoCover');
               bookBottom3.setAttribute('material','src:#stereoCover');
+              bookMiddle3.setAttribute('material','src:#paperOpen');
             }else{
               if(pag<=pageTot){
                 flipPage3.emit('open');
@@ -468,8 +473,9 @@ AFRAME.registerComponent("controller-spin", {
                 el.emit('close');
                 bookOpen = false;
                 pag = 2;
-                bookTop3.setAttribute('material','src:#paperOpen');
-                bookBottom3.setAttribute('material','src:#paperOpen');
+                bookTop3.setAttribute('material','src:#stereoCover');
+                bookBottom3.setAttribute('material','src:#stereoCover');
+                bookMiddle3.setAttribute('material','src:#stereoCover');
                 flipPage3.setAttribute('rotation','40 0 0');
                 wall3.setAttribute('material','src:#wall; repeat:3 3');
                 wall4.setAttribute('material','src:#wall; repeat:3 3');
@@ -493,6 +499,7 @@ AFRAME.registerComponent("controller-spin", {
               wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
               bookTop4.setAttribute('material','src:#easyCover');
               bookBottom4.setAttribute('material','src:#easyCover');
+              bookMiddle4.setAttribute('material','src:#paperOpen');
             }else{
               if(pag<=pageTot){
                 flipPage4.emit('open');
@@ -503,8 +510,9 @@ AFRAME.registerComponent("controller-spin", {
                 el.emit('close');
                 bookOpen = false;
                 pag = 2;
-                bookTop4.setAttribute('material','src:#paperOpen');
-                bookBottom4.setAttribute('material','src:#paperOpen');
+                bookTop4.setAttribute('material','src:#easyCover');
+                bookBottom4.setAttribute('material','src:#easyCover');
+                bookMiddle4.setAttribute('material','src:#easyCover');
                 flipPage4.setAttribute('rotation','40 0 0');
                 wall3.setAttribute('material','src:#wall; repeat:3 3');
                 wall4.setAttribute('material','src:#wall; repeat:3 3');
@@ -892,7 +900,7 @@ AFRAME.registerComponent("controller-spin", {
       <a-box id="bookTop" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-cinderella
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#cinderellaCover"></a-box>
+        <a-box id="bookMiddle" position=".25 .005 0" scale=".5 1 1" material="src:#cinderellaCover"></a-box>
       </a-box>
       <a-box id="bookBottom" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#cinderellaCover" shadow handle-events>
       </a-box>
@@ -908,7 +916,7 @@ AFRAME.registerComponent("controller-spin", {
       <a-box id="bookTop2" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-dore
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#doreCover"></a-box>
+        <a-box id="bookMiddle2" position=".25 .005 0" scale=".5 1 1" material="src:#doreCover"></a-box>
       </a-box>
       <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#doreCover" shadow handle-events>
       </a-box>
@@ -924,7 +932,7 @@ AFRAME.registerComponent("controller-spin", {
       <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-stereo
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#stereoCover"></a-box>
+        <a-box id="bookMiddle3" position=".25 .005 0" scale=".5 1 1" material="src:#stereoCover"></a-box>
       </a-box>
       <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#stereoCover" shadow handle-events>
       </a-box>
@@ -940,7 +948,7 @@ AFRAME.registerComponent("controller-spin", {
       <a-box id="bookTop4" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-easy
       animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
       animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#easyCover"></a-box>
+        <a-box id="bookMiddle4" position=".25 .005 0" scale=".5 1 1" material="src:#easyCover"></a-box>
       </a-box>
       <a-box id="bookBottom4" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#easyCover" shadow handle-events>
       </a-box>
