@@ -404,7 +404,41 @@ AFRAME.registerComponent("controller-spin", {
                 wall3.setAttribute('material','src:#wall; repeat:3 3');
                 wall4.setAttribute('material','src:#wall; repeat:3 3');
               }
+            }
+          });
+        }
+      });
 
+      AFRAME.registerComponent('open-dore', {
+        init: function () {
+          var el = this.el;
+          var bookOpen = false;
+          var pageTot = 18;
+          var pag = 2;
+          el.addEventListener('click', function () {
+            if(!bookOpen){
+              el.emit('open');
+              bookOpen = true;
+              wall3.setAttribute('material','src:#peterPan; repeat:1 1');
+              wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
+              bookTop2.setAttribute('material','src:#doreCover');
+              bookBottom2.setAttribute('material','src:#doreCover');
+            }else{
+              if(pag<pageTot){
+                flipPage2.emit('open');
+                bookTop2.setAttribute('material','src:assets/dore/red-'+pag+'.png');
+                bookBottom2.setAttribute('material','src:assets/dore/red-'+pag+'.png');
+                pag++;
+              }else{
+                el.emit('close');
+                bookOpen = false;
+                pag = 2;
+                bookTop2.setAttribute('material','src:#paperOpen');
+                bookBottom2.setAttribute('material','src:#paperOpen');
+                flipPage2.setAttribute('rotation','40 0 0');
+                wall3.setAttribute('material','src:#wall; repeat:3 3');
+                wall4.setAttribute('material','src:#wall; repeat:3 3');
+              }
             }
           });
         }
@@ -675,7 +709,8 @@ AFRAME.registerComponent("controller-spin", {
         <img id="roof" src="assets/roof.png">
         <img id="starSky" src="https://3.bp.blogspot.com/-J6CKUkxE_w8/XAmedzdrZUI/AAAAAAAAKl4/lmnPythyI2wi8qqeYmIyZKOpvEWiKtDMACLcBGAs/s1600/sky.png">
 
-        <img id="cinderellaCover" src="https://cdn.glitch.com/b5fa0f89-80f5-4507-9deb-983798ac61d3%2Fcinderella1904-1.png?1556155392109">
+        <img id="doreCover" src="assets/dore/red-1.png">
+        <img id="cinderellaCover" src="assets/cinderella/cinderella-1.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -794,27 +829,21 @@ AFRAME.registerComponent("controller-spin", {
       <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
     </a-entity>
 
-        <a-entity position="-3.5 0 -1">
-          <a-box id="bookTop2" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
-          animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
-          animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
-          </a-box>
-          <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
-          </a-box>
-          <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
-        </a-entity>
-
-        <a-entity position="-3.5 0 3">
-          <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
-          animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
-          animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
-          </a-box>
-          <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
-          </a-box>
-          <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
-        </a-entity>
+    <a-entity position="-3.5 0 -1">
+      <a-box id="bookTop2" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-dore
+      animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
+      animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
+        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
+      </a-box>
+      <a-box id="bookBottom2" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
+      </a-box>
+      <!--page flip-->
+      <a-box id="flipPage2" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
+        animation="property: rotation; from: 40 0 0; to: 40 0 180; dur:3000; startEvents:open;">
+        <a-box scale=".5 1 1" position=".25 0 0" material="src:#paperOpen"></a-box>
+      </a-box>
+      <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+    </a-entity>
 
         <a-entity position="2.5 0 3">
           <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
