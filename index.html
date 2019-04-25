@@ -444,6 +444,79 @@ AFRAME.registerComponent("controller-spin", {
         }
       });
 
+      AFRAME.registerComponent('open-stereo', {
+        init: function () {
+          var el = this.el;
+          var bookOpen = false;
+          var pageTot = 4;
+          var pag = 1;
+          el.addEventListener('click', function () {
+            if(!bookOpen){
+              el.emit('open');
+              bookOpen = true;
+              wall3.setAttribute('material','src:#peterPan; repeat:1 1');
+              wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
+              bookTop3.setAttribute('material','src:#stereoCover');
+              bookBottom3.setAttribute('material','src:#stereoCover');
+            }else{
+              if(pag<pageTot){
+                flipPage3.emit('open');
+                bookTop3.setAttribute('material','src:assets/stereograms/stereo-'+pag+'.png');
+                bookBottom3.setAttribute('material','src:assets/stereograms/stereo-'+pag+'.png');
+                pag++;
+              }else{
+                el.emit('close');
+                bookOpen = false;
+                pag = 2;
+                bookTop3.setAttribute('material','src:#paperOpen');
+                bookBottom3.setAttribute('material','src:#paperOpen');
+                flipPage3.setAttribute('rotation','40 0 0');
+                wall3.setAttribute('material','src:#wall; repeat:3 3');
+                wall4.setAttribute('material','src:#wall; repeat:3 3');
+              }
+            }
+          });
+        }
+      });
+
+      AFRAME.registerComponent('open-easy', {
+        init: function () {
+          var el = this.el;
+          var bookOpen = false;
+          var pageTot = 9;
+          var pag = 2;
+          el.addEventListener('click', function () {
+            if(!bookOpen){
+              el.emit('open');
+              bookOpen = true;
+              wall3.setAttribute('material','src:#peterPan; repeat:1 1');
+              wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
+              bookTop4.setAttribute('material','src:#easyCover');
+              bookBottom4.setAttribute('material','src:#easyCover');
+            }else{
+              if(pag<pageTot){
+                flipPage4.emit('open');
+                bookTop4.setAttribute('material','src:assets/easy/easy-'+pag+'.png');
+                bookBottom4.setAttribute('material','src:assets/easy/easy-'+pag+'.png');
+                pag++;
+              }else{
+                el.emit('close');
+                bookOpen = false;
+                pag = 2;
+                bookTop4.setAttribute('material','src:#paperOpen');
+                bookBottom4.setAttribute('material','src:#paperOpen');
+                flipPage4.setAttribute('rotation','40 0 0');
+                wall3.setAttribute('material','src:#wall; repeat:3 3');
+                wall4.setAttribute('material','src:#wall; repeat:3 3');
+              }
+            }
+          });
+        }
+      });
+
+
+
+
       var currentBook = "";
       var currentBookPageCount = 1;
       var currentPage = 1;
@@ -711,6 +784,8 @@ AFRAME.registerComponent("controller-spin", {
 
         <img id="doreCover" src="assets/dore/red-1.png">
         <img id="cinderellaCover" src="assets/cinderella/cinderella-1.png">
+        <img id="stereoCover" src="assets/stereograms/stereo-1.png">
+        <img id="easyCover" src="assets/easy/easy-1.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
       </a-assets>
@@ -845,16 +920,39 @@ AFRAME.registerComponent("controller-spin", {
       <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
     </a-entity>
 
-        <a-entity position="2.5 0 3">
-          <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-book="sleepingBeauty"
-          animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
-          animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
-            <a-box position=".25 .005 0" scale=".5 1 1" multisrc="srcs:#paper,#bookCover,#paperOpen,#paperOpen,#paper,#paper"></a-box>
-          </a-box>
-          <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" multisrc="srcs:#paper,#bookCover,#paperOpen,#sbBack,#paper,#paper" shadow handle-events>
-          </a-box>
-          <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
-        </a-entity>
+    <a-entity position="-3.5 0 3">
+      <a-box id="bookTop3" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-stereo
+      animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
+      animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
+        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
+      </a-box>
+      <a-box id="bookBottom3" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
+      </a-box>
+      <!--page flip-->
+      <a-box id="flipPage3" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
+        animation="property: rotation; from: 40 0 0; to: 40 0 180; dur:3000; startEvents:open;">
+        <a-box scale=".5 1 1" position=".25 0 0" material="src:#paperOpen"></a-box>
+      </a-box>
+      <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+    </a-entity>
+
+    <a-entity position="2.5 0 3">
+      <a-box id="bookTop4" position="0 .8 -7" scale="2 .2 1" rotation="40 0 0" transparent="true" opacity="0" shadow open-easy
+      animation__o="property: rotation; dur: 1000; to: 40 0 180; startEvents:open;"
+      animation__c="property: rotation; dur: 1000; to: 40 0 0; startEvents:close;">
+        <a-box position=".25 .005 0" scale=".5 1 1" material="src:#paperOpen"></a-box>
+      </a-box>
+      <a-box id="bookBottom4" position=".5 .8 -7" scale="1 .2 1" rotation="40 0 0" material="src:#paperOpen" shadow handle-events>
+      </a-box>
+      <!--page flip-->
+      <a-box id="flipPage4" scale="2 .01 1" position="0 .8 -7" rotation="40 0 0" transparent="true" opacity="0"
+        animation="property: rotation; from: 40 0 0; to: 40 0 180; dur:3000; startEvents:open;">
+        <a-box scale=".5 1 1" position=".25 0 0" material="src:#paperOpen"></a-box>
+      </a-box>
+      <a-box position="0 .3 -7" scale=".1 1 .1" color="white" shadow></a-box>
+    </a-entity>
+
+
 
 
       <!--display book screen-->
