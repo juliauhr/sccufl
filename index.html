@@ -398,6 +398,9 @@ AFRAME.registerComponent("controller-spin", {
                 el.emit('close');
                 bookOpen = false;
                 pag = 2;
+                bookTop.setAttribute('material','src:#paperOpen');
+                bookBottom.setAttribute('material','src:#paperOpen');
+                bookBottom.setAttribute('rotation','40 0 0');
                 wall3.setAttribute('material','src:#wall; repeat:3 3');
                 wall4.setAttribute('material','src:#wall; repeat:3 3');
               }
