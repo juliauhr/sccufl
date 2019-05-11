@@ -181,6 +181,7 @@
             var name = shelfBooks[i].id;
             newbook.setAttribute('material','src:assets/'+name+'/'+name+'-1.png');
             newbook.setAttribute('open-shelf-book','');
+            newbook.setAttribute('update-progress-bar','');
             newbook.setAttribute('shelf-book-hover','');
             newbook.setAttribute('number',i);
             newbook.setAttribute('id','shelfBook'+i);
@@ -308,13 +309,13 @@
           el.addEventListener('click', function () {
             open = !open;
             if(open){
-              screen3.setAttribute('visible','true');
-              document.querySelector('#screen3').emit('open');
-              document.querySelector('#pic3').emit('open');
+              backScreen.setAttribute('visible','true');
+              document.querySelector('#backScreen').emit('open');
+              document.querySelector('#backScreenImg').emit('open');
             }else{
-              screen3.setAttribute('visible','false');
-              document.querySelector('#screen3').emit('close');
-              document.querySelector('#pic3').emit('close');
+              backScreen.setAttribute('visible','false');
+              document.querySelector('#backScreen').emit('close');
+              document.querySelector('#backScreenImg').emit('close');
             }
           });
         }
@@ -582,8 +583,6 @@ AFRAME.registerComponent("controller-spin", {
       });
 
 
-
-
       var currentBook = "";
       var currentBookPageCount = 1;
       var currentPage = 1;
@@ -592,14 +591,14 @@ AFRAME.registerComponent("controller-spin", {
           var el = this.el;
           el.addEventListener('click', function () {
             currentPage = 1;
-              document.querySelector('#screen3').setAttribute('visible','true');
-              document.querySelector('#screen2').setAttribute('visible','true');
+              document.querySelector('#backScreen').setAttribute('visible','true');
+              document.querySelector('#ceilingScreen').setAttribute('visible','true');
               var num = el.getAttribute('number');
               var id = shelfBooks[num].id;
               currentBook =  id;
               currentBookPageCount = shelfBooks[num].pages;
-              document.querySelector('#pic3').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
-              document.querySelector('#pic2').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
+              document.querySelector('#backScreenImg').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
+              document.querySelector('#ceilingScreenImg').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
           });
         }
       });
@@ -613,8 +612,8 @@ AFRAME.registerComponent("controller-spin", {
             }else{
               currentPage = 1;
             }
-            document.querySelector('#pic3').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
-            document.querySelector('#pic2').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#backScreenImg').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#ceilingScreenImg').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
           });
         }
       });
@@ -627,12 +626,13 @@ AFRAME.registerComponent("controller-spin", {
             }else{
               currentPage = currentBookPageCount;
             }
-            document.querySelector('#pic3').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#backScreenImg').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
+            document.querySelector('#ceilingScreenImg').setAttribute('material','src: assets/'+currentBook+'/'+currentBook+'-'+currentPage+'.png');
           });
         }
       });
 
-      AFRAME.registerComponent('next-page', {
+      /*AFRAME.registerComponent('next-page', {
         init: function () {
           var num = 1;
           var pageTotal = 9;
@@ -651,7 +651,7 @@ AFRAME.registerComponent("controller-spin", {
             //document.querySelector('#loading1').setAttribute('visible','false');
           });
         }
-      });
+      });*/
 
 
       AFRAME.registerComponent('previous', {
@@ -684,9 +684,11 @@ AFRAME.registerComponent("controller-spin", {
         init: function () {
           var el = this.el;
           el.addEventListener('click', function () {
-            var Xpos = -2.5+((num*(5/pageTotal))/2);
-            progressBar3.setAttribute('width',(num*(5/pageTotal)));
-            progressBar3.setAttribute('position', {x:Xpos, y:-1.79, z:.02});
+            //currentPage/currentBookPageCount;
+
+            var Xpos = -2.5+((currentPage*(5/currentBookPageCount))/2);
+            backProgressBar.setAttribute('width',(currentPage*(5/currentBookPageCount)));
+            backProgressBar.setAttribute('position', {x:Xpos, y:-1.79, z:.02});
           });
         }
       });
@@ -939,11 +941,11 @@ AFRAME.registerComponent("controller-spin", {
       </a-box>
 
       <!--ceiling screen-->
-      <a-plane id="screen2" scale="3 3" position="5.5 2.98 3.5" rotation="90 0 -90" color="white" transparent="true" opacity=".5">
-        <a-plane id="pic2" position="0 0 .01" scale=".5 .7" material="src:#ceilingSign">
+      <a-plane id="ceilingScreen" scale="3 3" position="5.5 2.98 3.5" rotation="90 0 -90" color="white" transparent="true" opacity=".5">
+        <a-plane id="ceilingScreenImg" position="0 0 .01" scale=".5 .7" material="src:#ceilingSign">
         </a-plane>
-        <a-plane position=".4 0 .02" height=".1" width=".1" material="src:#arrow" rotation="0 0 180" next-page-shelf button-hover></a-plane>
-        <a-plane position=".4 -.2 .02" height=".1" width=".1" material="src:#arrow" previous-page-shelf button-hover></a-plane>
+        <a-plane position=".4 0 .02" height=".1" width=".1" material="src:#arrow" rotation="0 0 180" next-page-shelf update-progress-bar button-hover></a-plane>
+        <a-plane position=".4 -.2 .02" height=".1" width=".1" material="src:#arrow" previous-page-shelf update-progress-bar button-hover></a-plane>
       </a-plane>
 
       <!--trees
@@ -1040,15 +1042,15 @@ AFRAME.registerComponent("controller-spin", {
       </a-plane>-->
 
       <!--shelf book screen-->
-      <a-plane id="screen3" position="-.5 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="false">
-        <a-plane id="pic3" position="0 0 .01" height="3.3" width="2.5" color="white"
+      <a-plane id="backScreen" position="-.5 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="false">
+        <a-plane id="backScreenImg" position="0 0 .01" height="3.3" width="2.5" color="white"
         ></a-plane>
         <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180"
         next-page-shelf button-hover update-progress-bar></a-plane>
         <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow"
         previous-page-shelf button-hover update-progress-bar></a-plane>
         <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
-        <!--<a-plane id="progressBar3" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>-->
+        <a-plane id="backProgressBar" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
       </a-plane>
 
       <!--gramophone-->
