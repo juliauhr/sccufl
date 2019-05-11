@@ -592,7 +592,9 @@ AFRAME.registerComponent("controller-spin", {
           el.addEventListener('click', function () {
             currentPage = 1;
               document.querySelector('#backScreen').setAttribute('visible','true');
-              document.querySelector('#ceilingScreen').setAttribute('visible','true');
+              document.querySelector('#backScreen').emit('open');
+              document.querySelector('#backScreenImg').emit('open');
+              //document.querySelector('#ceilingScreen').setAttribute('visible','true');
               var num = el.getAttribute('number');
               var id = shelfBooks[num].id;
               currentBook =  id;
@@ -602,7 +604,16 @@ AFRAME.registerComponent("controller-spin", {
           });
         }
       });
-
+      AFRAME.registerComponent('close-back-screen', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+              document.querySelector('#backScreen').setAttribute('visible','false');
+              document.querySelector('#backScreen').setAttribute('width','.01');
+              document.querySelector('#backScreenImg').setAttribute('width','.01');
+          });
+        }
+      });
       AFRAME.registerComponent('next-page-shelf', {
         init: function () {
           var el = this.el;
@@ -834,6 +845,7 @@ AFRAME.registerComponent("controller-spin", {
         <img id="peterPan2" src="assets/peterPan2.png">
         <img id="ceilingSign" src="assets/ceilingSign.png">
         <img id="vrdoor" src="assets/door.jpg">
+        <img id="closeButton" src="assets/closeButton.png">
 
         <img id="artwork1" src="assets/wallArt/pic1.png">
         <img id="artwork2" src="assets/wallArt/pic2.png">
@@ -1042,13 +1054,17 @@ AFRAME.registerComponent("controller-spin", {
       </a-plane>-->
 
       <!--shelf book screen-->
-      <a-plane id="backScreen" position="-.5 3 -13" width="5" height="3.5" color="white" transparent="true" opacity=".8" visible="false">
-        <a-plane id="backScreenImg" position="0 0 .01" height="3.3" width="2.5" color="white"
+      <a-plane id="backScreen" position="-.5 3 -13" width=".01" height="3.5" color="white" transparent="true" opacity=".8" visible="false"
+        animation__o = "property: width; to: 5; startEvents:open;"
+      >
+        <a-plane id="backScreenImg" position="0 0 .01" height="3.3" width=".01" color="white"
+          animation__o = "property: width; to: 2.5; startEvents:open;"
         ></a-plane>
         <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180"
         next-page-shelf button-hover update-progress-bar></a-plane>
         <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow"
         previous-page-shelf button-hover update-progress-bar></a-plane>
+        <a-plane position="2.25 1.5 .01" height=".5" width=".5" material="src:#closeButton" close-back-screen button-hover></a-plane>
         <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
         <a-plane id="backProgressBar" position="-2.45 -1.79 .02" height=".1" width=".1" color="cyan"></a-plane>
       </a-plane>
