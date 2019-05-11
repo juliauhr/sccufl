@@ -99,6 +99,38 @@
         call:"",
         pages:10
       });
+      shelfBooks.push({
+        title:"Little Red Riding Hood",
+        id:"dore",
+        author:"Gustave Dore",
+        date:"1867",
+        call:"",
+        pages:18
+      });
+      shelfBooks.push({
+        title:"Cinderella",
+        id:"cinderella",
+        author:"",
+        date:"1904",
+        call:"",
+        pages:18
+      });
+      shelfBooks.push({
+        title:"The Easy Word Fairy Book",
+        id:"easy",
+        author:"",
+        date:"1923",
+        call:"",
+        pages:9
+      });
+      shelfBooks.push({
+        title:"Little Red Riding Hood",
+        id:"stereo",
+        author:"(Stereograms)",
+        date:"",
+        call:"",
+        pages:4
+      });
 
 
       AFRAME.registerComponent('setup', {
@@ -431,8 +463,8 @@ AFRAME.registerComponent("controller-spin", {
             }else{
               if(pag<=pageTot){
                 flipPage2.emit('open');
-                bookTop2.setAttribute('material','src:assets/dore/red-'+pag+'.png');
-                bookBottom2.setAttribute('material','src:assets/dore/red-'+pag+'.png');
+                bookTop2.setAttribute('material','src:assets/dore/dore-'+pag+'.png');
+                bookBottom2.setAttribute('material','src:assets/dore/dore-'+pag+'.png');
                 pag++;
               }else{
                 el.emit('close');
@@ -468,8 +500,8 @@ AFRAME.registerComponent("controller-spin", {
             }else{
               if(pag<=pageTot){
                 flipPage3.emit('open');
-                bookTop3.setAttribute('material','src:assets/stereograms/stereo-'+pag+'.png');
-                bookBottom3.setAttribute('material','src:assets/stereograms/stereo-'+pag+'.png');
+                bookTop3.setAttribute('material','src:assets/stereo/stereo-'+pag+'.png');
+                bookBottom3.setAttribute('material','src:assets/stereo/stereo-'+pag+'.png');
                 pag++;
               }else{
                 el.emit('close');
@@ -792,9 +824,9 @@ AFRAME.registerComponent("controller-spin", {
         <img id="roof" src="assets/roof.png">
         <img id="starSky" src="https://3.bp.blogspot.com/-J6CKUkxE_w8/XAmedzdrZUI/AAAAAAAAKl4/lmnPythyI2wi8qqeYmIyZKOpvEWiKtDMACLcBGAs/s1600/sky.png">
 
-        <img id="doreCover" src="assets/dore/red-1.png">
+        <img id="doreCover" src="assets/dore/dore-1.png">
         <img id="cinderellaCover" src="assets/cinderella/cinderella-1.png">
-        <img id="stereoCover" src="assets/stereograms/stereo-1.png">
+        <img id="stereoCover" src="assets/stereo/stereo-1.png">
         <img id="easyCover" src="assets/easy/easy-1.png">
 
         <audio id="audio" src="assets/ClairDeLune.mp3">
