@@ -116,7 +116,7 @@
         pages:18
       });
       shelfBooks.push({
-        title:"The Easy Word Fairy Book",
+        title:"Easy Word Fairy Book",
         id:"easy",
         author:"",
         date:"1923",
@@ -161,8 +161,9 @@
         init: function () {
 
           //bookshelf books
-          var shelfWidth = shelfBooks.length*.15;
-          startX = -(shelfWidth/2);
+          var bookWidth = .25;
+          var shelfWidth = shelfBooks.length*(bookWidth+.05);
+          startX = -(shelfWidth/2)-.5;
           if(shelfBooks.length >150){
             startY = 4;
           }else if(shelfBooks.length >100){
@@ -183,15 +184,15 @@
             newbook.setAttribute('shelf-book-hover','');
             newbook.setAttribute('number',i);
             newbook.setAttribute('id','shelfBook'+i);
-            newbook.object3D.scale.set(.1, .5, .4);
-            newbook.object3D.position.set(startX+i*.15, startY*1, -12);
+            newbook.object3D.scale.set(bookWidth, .5, .4);
+            newbook.object3D.position.set(startX+i*(bookWidth+.05), startY*1, -12);
             document.querySelector('a-scene').appendChild(newbook);
 
             var newtext = document.createElement('a-box');
             newtext.setAttribute('visible','false');
             newtext.setAttribute('number',i);
             newtext.object3D.scale.set(1, .7, .01);
-            newtext.object3D.position.set(startX+i*.15, startY*1.5, -12.2);
+            newtext.object3D.position.set(startX+i*(bookWidth+.05), startY*1.5, -12.2);
             newtext.setAttribute('id','shelfBookText'+i);
             document.querySelector('a-scene').appendChild(newtext);
 
