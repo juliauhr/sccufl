@@ -872,7 +872,6 @@ AFRAME.registerComponent("controller-spin", {
         <img id="brass" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Fproducts-4113.jpg?1551230008276">
         <img id="record" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
         <img id="loading" src="https://cdn.glitch.com/d0a61217-8dd6-4aca-8ed3-39e346dbde6e%2Flogo-record.png?1551233319871">
-        <img id="welcomeSign" src="assets/welcomeSign.png">
         <img id="peterPan" src="assets/peterPan.png">
         <img id="peterPan2" src="assets/peterPan2.png">
         <img id="ceilingSign" src="assets/ceilingSign.png">
@@ -888,7 +887,7 @@ AFRAME.registerComponent("controller-spin", {
         <img id="artwork7" src="assets/wallArt/pic7.png">
         <img id="artwork8" src="assets/wallArt/pic8.png">
 
-        <img id="sccuflSign" src="assets/sccuflSign.png">
+        <img id="sccuflSign" src="assets/welcomeSign.png">
         <img id="space" src="assets/sky.jpeg">
         <img id="moonPic" src="assets/moon.jpg">
         <img id="elevatorDoorPic" src="assets/elevatorDoor.png">
@@ -1087,14 +1086,13 @@ AFRAME.registerComponent("controller-spin", {
 
       <!--shelf book screen-->
       <a-plane id="backScreen" position="-.5 3 -13" width=".01" height="3.5" color="white" transparent="true" opacity=".8" visible="false"
-        animation__o = "property: width; to: 5; startEvents:open;"
-      >
+        animation__o = "property: width; to: 5; startEvents:open;">
         <a-plane id="backScreenImg" position="0 0 .01" height="3.3" width=".01" color="white"
           animation__o = "property: width; to: 2.5; startEvents:open;"
         ></a-plane>
-        <a-plane position="2 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180"
+        <a-plane position="2.25 0 .01" height=".5" width=".5" material="src:#arrow" rotation="0 0 180"
         next-page-shelf button-hover update-progress-bar></a-plane>
-        <a-plane position="-2 0 .01" height=".5" width=".5" material="src:#arrow"
+        <a-plane position="-2.25 0 .01" height=".5" width=".5" material="src:#arrow"
         previous-page-shelf button-hover update-progress-bar></a-plane>
         <a-plane position="2.25 1.5 .01" height=".5" width=".5" material="src:#closeButton" close-back-screen button-hover></a-plane>
         <a-plane position="0 -1.79 .01" height=".1" width="5" color="grey"></a-plane>
