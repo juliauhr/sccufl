@@ -1125,7 +1125,7 @@ AFRAME.registerComponent("controller-spin", {
       <!--player-->
       <a-entity id="outterRig" position="0 0 4">
       <a-entity id="rig">
-        <a-camera position="0 1.6 0"></a-camera>
+        <a-camera position="0 1.6 0" wasd-controls="enabled:false"></a-camera>
         <a-entity id="controller" oculus-go-controls ogo-listener controller-spin></a-entity>
         <a-entity laser-controls="hand: right" line="color: cyan; opacity: 1; far: 5"></a-entity>
       </a-entity>
