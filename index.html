@@ -633,8 +633,8 @@ AFRAME.registerComponent("controller-spin", {
               currentBookPageCount = shelfBooks[num].pages;
               document.querySelector('#backScreenImg').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
               document.querySelector('#ceilingScreenImg').setAttribute('material','src: assets/'+id+'/'+id+'-1.png');
-              wall3.setAttribute('material','src:#peterPan; repeat:1 1');
-              wall4.setAttribute('material','src:#peterPan2; repeat:1 1');
+              document.querySelector('#wall3').setAttribute('material','src: assets/'+id+'/'+id+'-1.png'');
+              document.querySelector('#wall4')('material','src: assets/'+id+'/'+id+'-1.png'');
           });
         }
       });
